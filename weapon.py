@@ -2,12 +2,19 @@ from sprite_main import *
 
 
 class Weapon(AnimSprite):
-    def __init__(self, game, path='assets/anim_sprites/pickups/stick/STICK1.png', scale=1.8, anim_time=90):
-        super().__init__(game=game, path=path, wscale=scale, anim_time=anim_time)
+    def __init__(self, game, path='assets/anim_sprites/pickups/stick/STICK1.png', wscale=1.8, hscale=1.8, anim_time=90):
+        super().__init__(game=game, path=path, wscale=wscale, hscale=hscale, anim_time=anim_time)
+        self.STICK_PATH = self.get_images('assets/anim_sprites/pickups/stick')
+        self.SHOT_PATH = self.get_images('assets/anim_sprites/pickups/shotgun')
+        self.STICK_IMAGES = deque(
+            [pg.transform.smoothscale(img, (self.image.get_width() * wscale, self.image.get_height() * hscale))
+             for img in self.STICK_PATH])
+        self.SHOT_IMAGES = deque(
+            [pg.transform.smoothscale(img, (self.image.get_width() * wscale, self.image.get_height() * hscale))
+             for img in self.SHOT_PATH])
         self.images = deque(
-            [pg.transform.smoothscale(img, (self.image.get_width() * scale, self.image.get_height() * scale))
+            [pg.transform.smoothscale(img, (self.image.get_width() * wscale, self.image.get_height() * hscale))
              for img in self.images])
-        self.scale = scale
         self.pos_inc = 0
         self.POS_W = self.images[0].get_width()
         self.weapon_pos = (0, 0)
@@ -103,10 +110,10 @@ class Weapon(AnimSprite):
 
     def type_checker(self):
         if self.type == 'katana':
-            # self.images = self.get_images('assets/anim_sprites/pickups/stick')
+            self.images = self.STICK_IMAGES
             self.DMG = 20
         if self.type == 'shotgun':
-            self.images = self.get_images('assets/anim_sprites/pickups/shotgun')
+            self.images = self.SHOT_IMAGES
             self.DMG = 50
             self.num_images = len(self.images)
 
