@@ -2,7 +2,7 @@ from sprite_main import *
 
 
 class Weapon(AnimSprite):
-    def __init__(self, game, path='assets/anim_sprites/pickups/stick/STICK1.png', wscale=1.8, hscale=1.8, anim_time=90):
+    def __init__(self, game, path='assets/anim_sprites/NOTEX.PNG', wscale=1.8, hscale=1.8, anim_time=90):
         super().__init__(game=game, path=path, wscale=wscale, hscale=hscale, anim_time=anim_time)
         self.STICK_PATH = self.get_images('assets/anim_sprites/pickups/stick')
         self.SHOT_PATH = self.get_images('assets/anim_sprites/pickups/shotgun')

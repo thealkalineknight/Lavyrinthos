@@ -42,7 +42,7 @@ class Game:
         self.obj_config.update()
         self.weapon.update()
         self.dtime = self.clock.tick(FPS)
-        pg.display.set_caption(f'{self.clock.get_fps() :.1f}')
+        pg.display.set_caption(f'{self.clock.get_fps():.1f}')
 
     def draw(self):
         pg.display.flip()
