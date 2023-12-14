@@ -72,6 +72,7 @@ class Interacts(AnimSprite):
                             weapon = self.game.weapon
                             weapon.first_find = False
                             weapon.draw_switch = True
+                            weapon.INVENTORY[pickup[2]] = True
                             self.weapon_prep_check(pickup[2])
                             pickup[0] = True
 

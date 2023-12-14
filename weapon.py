@@ -32,19 +32,28 @@ class Weapon(AnimSprite):
         self.DMG = 20
         self.deliver_dmg = 0
         self.type = ''
+        self.INVENTORY = {1: False, 2: False}
 
     def update(self):
         self.check_anim_time()
         self.animate_atk()
         self.weapon_up()
-        self.right_click()
+        self.swapper()
 
-    def right_click(self):
+    def swapper(self):
         if self.right_clicked:
             if self.is_up:
                 self.weapon_down()
             else:
                 self.weapon_up()
+        key = pg.key.get_pressed()
+
+        if key[pg.K_1] and self.INVENTORY[1]:
+            self.type = 'katana'
+            self.type_checker()
+        if key[pg.K_2] and self.INVENTORY[2]:
+            self.type = 'shotgun'
+            self.type_checker()
 
     def draw(self):
         if self.draw_switch:
