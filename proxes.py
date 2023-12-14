@@ -6,5 +6,5 @@ class Proxes:
     gates = {(1, 0): [False, 1]}
 
     stands = {(1, 6): [False, 1], (1, 4): [False, 2]}  # 1, 7
-
+    # name = {(x, y): [bool, id, type]}
     pickups = {(1, 6): [False, 1, 1], (5, 3): [False, 2, 2]}

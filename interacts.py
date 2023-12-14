@@ -67,12 +67,13 @@ class Interacts(AnimSprite):
                 if pickup[1] == self.iden:  # a bit close for now
                     # if pos = thing pos
                     if self.game.player.map_pos == item:
-                        pickup[0] = True
-                        self.image = self.NO_IMAGE
-                        weapon = self.game.weapon
-                        weapon.first_find = False
-                        weapon.draw_switch = True
-                        self.weapon_prep_check(pickup[2])
+                        if not pickup[0]:
+                            self.image = self.NO_IMAGE
+                            weapon = self.game.weapon
+                            weapon.first_find = False
+                            weapon.draw_switch = True
+                            self.weapon_prep_check(pickup[2])
+                            pickup[0] = True
 
     def gate_prep_check(self):
         for item in Proxes.stands:

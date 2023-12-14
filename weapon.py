@@ -51,6 +51,11 @@ class Weapon(AnimSprite):
             if not self.is_up and not self.first_find:
                 self.type_checker()
                 self.weapon_up()
+            if self.is_up and not self.first_find:
+                self.weapon_down()
+                if not self.is_up:
+                    self.type_checker()
+                    self.weapon_up()
             self.game.screen.blit(self.images[0], self.weapon_pos)
 
     def animate_atk(self):
@@ -92,26 +97,27 @@ class Weapon(AnimSprite):
                     self.first_find = True
             else:
                 if not self.first_find:
-                    self.pos_inc += 2
+                    self.pos_inc += 3
                 else:
-                    self.pos_inc += 10
+                    self.pos_inc += 15
                 self.weapon_pos = (HWIDTH - self.POS_W // 2, HEIGHT - self.pos_inc)
 
     def weapon_down(self):
-        if self.is_up and self.right_clicked:
+        if (self.is_up and self.right_clicked) or (self.is_up and not self.first_find):
             if self.pos_inc2 < 0:
                 self.right_clicked = False
                 self.weapon_pos = (HWIDTH - self.POS_W // 2, HEIGHT - self.pos_inc2)
                 self.is_up = False
                 self.pos_inc2 = self.images[0].get_height()
             else:
-                self.pos_inc2 -= 10
+                self.pos_inc2 -= 20
                 self.weapon_pos = (HWIDTH - self.POS_W // 2, HEIGHT - self.pos_inc2)
 
     def type_checker(self):
         if self.type == 'katana':
             self.images = self.STICK_IMAGES
             self.DMG = 20
+            self.num_images = len(self.images)
         if self.type == 'shotgun':
             self.images = self.SHOT_IMAGES
             self.DMG = 50
