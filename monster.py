@@ -71,6 +71,8 @@ class Monster(AnimSprite):
             self.determine_move()
         else:
             self.image = self.DEATH_IMAGE
+        if self.dying_state and self.alive_state:
+            self.get_death()
 
     def timed_event(self):
         if not self.attack_state:
@@ -164,17 +166,19 @@ class Monster(AnimSprite):
     def get_attacked(self):
         dmg = self.game.weapon.deliver_dmg
         if self.health < 0:
-            self.move_state = False
             self.dying_state = True
-            self.animate(self.death_images)
-            if self.anim_trigger:
-                if self.frame_counter < len(self.death_images) - 2:
-                    self.frame_counter += 1
-                else:
-                    self.alive_state = False
         elif dmg > 0:
             self.health -= dmg
         # no hurt anim lol
+
+    def get_death(self):
+        self.move_state = False
+        self.animate(self.death_images)
+        if self.anim_trigger:
+            if self.frame_counter < len(self.death_images) - 2:
+                self.frame_counter += 1
+            else:
+                self.alive_state = False
 
     def attacker(self, ray_value):
         if ray_value < self.RANGED_DIST:
