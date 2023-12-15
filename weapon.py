@@ -27,6 +27,7 @@ class Weapon(AnimSprite):
         self.first_find = False
         self.pos_inc2 = self.images[0].get_height()
         self.right_clicked = False
+        self.firing_state = False
         #
         self.RANGE = 1
         self.DMG = 20
@@ -70,6 +71,7 @@ class Weapon(AnimSprite):
     def animate_atk(self):
         self.deliver_dmg = 0
         if self.ready_atk and self.is_up:
+            self.firing_state = True
             if self.anim_trigger:
                 self.images.rotate(-1)
                 self.image = self.images[0]
@@ -77,6 +79,7 @@ class Weapon(AnimSprite):
                 if self.frame_counter == self.num_images:
                     self.determine_atk()
                     self.frame_counter = 0
+                    self.firing_state = False
                     self.ready_atk = False
 
     def determine_atk(self):
@@ -87,9 +90,9 @@ class Weapon(AnimSprite):
     def attack_event(self, event):
         self.anim_trigger = False
         if event.type == pg.MOUSEBUTTONDOWN:
-            if event.button == 1:
+            if event.button == 1 and not self.right_clicked:
                 self.ready_atk = True
-            if event.button == 3:
+            elif event.button == 3 and not self.firing_state:
                 self.ready_atk = False
                 self.right_clicked = True
 
@@ -108,7 +111,7 @@ class Weapon(AnimSprite):
                 if not self.first_find:
                     self.pos_inc += 3
                 else:
-                    self.pos_inc += 15
+                    self.pos_inc += 10
                 self.weapon_pos = (HWIDTH - self.POS_W // 2, HEIGHT - self.pos_inc)
 
     def weapon_down(self):
@@ -131,5 +134,3 @@ class Weapon(AnimSprite):
             self.images = self.SHOT_IMAGES
             self.DMG = 50
             self.num_images = len(self.images)
-
-        # images() based structs or just modify in above

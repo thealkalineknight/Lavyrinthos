@@ -45,7 +45,7 @@ class Monster(AnimSprite):
         #
         self.frame_counter = 0
         self.size = 10  # these vars temp
-        self.speed = 0.05  # 0.1  # sus
+        self.speed = 0.01  # 0.1  #0.05  # sus
         self.loop_i = 0
         #
         self.DIR_RANGE = 6
