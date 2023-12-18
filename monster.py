@@ -45,7 +45,7 @@ class Monster(AnimSprite):
         #
         self.frame_counter = 0
         self.size = 10  # these vars temp
-        self.speed = 0.01  # 0.1  #0.05  # sus
+        self.speed = 0.05  # 0.1  #0.01  # sus
         self.loop_i = 0
         #
         self.DIR_RANGE = 6
@@ -162,15 +162,6 @@ class Monster(AnimSprite):
         if key[pg.K_o]:
             self.route_moving()
 
-    # right now, it is any dist, no determiner until diff weapon types
-    def get_attacked(self):
-        dmg = self.game.weapon.deliver_dmg
-        if self.health < 0:
-            self.dying_state = True
-        elif dmg > 0:
-            self.health -= dmg
-        # no hurt anim lol
-
     def get_death(self):
         self.move_state = False
         self.animate(self.death_images)
@@ -179,6 +170,17 @@ class Monster(AnimSprite):
                 self.frame_counter += 1
             else:
                 self.alive_state = False
+
+    # right now, it is any dist, no determiner until diff weapon types
+    def get_attacked(self):
+        self.draw_ray_cast()
+        dmg = self.game.weapon.deliver_dmg
+        if self.health < 0:
+            self.dying_state = True
+        elif dmg > 0:
+            if self.weapon_ray():
+                self.health -= dmg
+        # no hurt anim lol
 
     def attacker(self, ray_value):
         if ray_value < self.RANGED_DIST:
@@ -197,7 +199,6 @@ class Monster(AnimSprite):
         else:
             self.move_state = True
             self.attack_state = False
-            # when not in ray range, freezes
 
     def route_moving(self):
         goal_node = self.sector.waypoints[self.loop_i]
@@ -215,7 +216,7 @@ class Monster(AnimSprite):
             self.anim_dir(next_pos)
             next_x, next_y = next_pos
             pg.draw.rect(self.game.screen, 'blue', (self.game.map.scale * next_x, self.game.map.scale * next_y,
-                                                        self.game.map.scale, self.game.map.scale))
+                                                    self.game.map.scale, self.game.map.scale))
             angle = math.atan2(next_y + 0.5 - self.y, next_x + 0.5 - self.x)
             dx = math.cos(angle) * self.speed
             dy = math.sin(angle) * self.speed
@@ -343,11 +344,82 @@ class Monster(AnimSprite):
 
             pg.draw.line(self.game.screen, 'yellow', (self.game.map.scale * px, self.game.map.scale * py),
                          (self.game.map.scale * px + self.game.map.scale * depth * cos_a,
-                          self.game.map.scale * py + self.game.map.scale * depth * sin_a), 2)
+                         self.game.map.scale * py + self.game.map.scale * depth * sin_a), 2)
 
             depth *= math.cos(self.game.player.angle - ray_angle)
 
             ray_angle += DELTA_ANGLE
+
+    def weapon_ray(self):
+        if self.game.player.map_pos == self.map_pos:
+            return True
+
+        wall_dist_v, wall_dist_h = 0, 0
+        player_dist_v, player_dist_h = 0, 0
+
+        px, py, = self.game.player.pos
+        px_map, py_map = self.game.player.map_pos
+
+        ray_angle = self.theta
+
+        sin_a = math.sin(ray_angle)
+        cos_a = math.cos(ray_angle)
+
+        # hor
+        y_hor, dy = (py_map + 1, 1) if sin_a > 0 else (py_map - 1e-6, -1)
+
+        hor_depth = (y_hor - py) / (sin_a + 0.0001)
+        x_hor = px + hor_depth * cos_a
+
+        delta_depth = dy / sin_a
+        dx = delta_depth * cos_a
+
+        for i in range(MAX_DEPTH):
+            hor_grid = int(x_hor), int(y_hor)
+            if hor_grid == self.map_pos:
+                player_dist_h = hor_depth
+                break
+            if hor_grid in self.game.map.cor_map:
+                wall_dist_h = hor_depth
+                break
+            x_hor += dx
+            y_hor += dy
+            hor_depth += delta_depth
+
+        # vert
+        x_vert, dx = (px_map + 1, 1) if cos_a > 0 else (px_map - 1e-6, -1)
+
+        vert_depth = (x_vert - px) / cos_a
+        y_vert = py + vert_depth * sin_a
+
+        delta_depth = dx / cos_a
+        dy = delta_depth * sin_a
+
+        for i in range(MAX_DEPTH):
+            tile_vert = int(x_vert), int(y_vert)
+            if tile_vert == self.map_pos:
+                player_dist_v = vert_depth
+                break
+            if tile_vert in self.game.map.cor_map:
+                wall_dist_v = vert_depth
+                break
+            x_vert += dx
+            y_vert += dy
+            vert_depth += delta_depth
+
+        player_dist = max(player_dist_v, player_dist_h)
+        wall_dist = max(wall_dist_v, wall_dist_h)
+
+        if 0 < player_dist < wall_dist or not wall_dist:
+            return True
+        return False
+
+    def draw_ray_cast(self):
+        scale = self.game.map.scale
+        pg.draw.circle(self.game.screen, 'red', (scale * self.x, scale * self.y), 15)
+        if self.weapon_ray():
+            pg.draw.line(self.game.screen, 'orange', (scale * self.game.player.x, scale * self.game.player.y),
+                         (scale * self.x, scale * self.y), 5)
 
     @property
     def map_pos(self):
