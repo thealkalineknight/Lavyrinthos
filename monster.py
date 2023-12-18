@@ -267,18 +267,10 @@ class Monster(AnimSprite):
         if sec1.x1 < self.x < sec1.x2:
             if sec1.y1 < self.y < sec1.y2:
                 self.sector = sec1
-                ssec1 = sec1.SSector1
-                ssec2 = sec1.SSector2
-                ssec3 = sec1.SSector3
-                if ssec1.x1 < self.x < ssec1.x2:
-                    if ssec1.y1 < self.y < ssec1.y2:
-                        self.ssector = ssec1
-                if ssec2.x1 < self.x < ssec2.x2:
-                    if ssec2.y1 < self.y < ssec2.y2:
-                        self.ssector = ssec2
-                if ssec3.x1 < self.x < ssec3.x2:
-                    if ssec3.y1 < self.y < ssec3.y2:
-                        self.ssector = ssec3
+        sec2 = Sector.Sector2
+        if sec2.x1 < self.x < sec2.x2:
+            if sec2.y1 < self.y < sec2.y2:
+                self.sector = sec2
 
     def raycast(self):
         self.see_player = False
