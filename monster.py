@@ -57,6 +57,10 @@ class Monster(AnimSprite):
         self.prev_time = pg.time.get_ticks()
         self.ANY_DIST = False
         self.see_player = False
+        self.out_search = True
+        self.in_search = False
+        self.cons_swap = False
+        self.cons_i = 0
 
     def update(self):
         self.check_sector()
@@ -135,11 +139,8 @@ class Monster(AnimSprite):
 
     # the timer function allows the monster to target player even if behind wall until ray value refreshes
     def determine_move(self):
-        # ------------------------------------ test stuff
-        ray = True
-        key = pg.key.get_pressed()
-        if key[pg.K_l]:
-            ray = False
+        if self.out_search and self.in_search:
+            self.search_switcher()
         # ------------------------------------
         player_x, player_y = int(self.game.player.x), int(self.game.player.y)
         monster_x, monster_y = int(self.x), int(self.y)
@@ -147,19 +148,17 @@ class Monster(AnimSprite):
             self.ANY_DIST = True
             self.raycast()
             self.get_attacked()
-            if self.ray_value < self.DIR_RANGE and ray:  # test on end
+            if self.ray_value < self.DIR_RANGE:
+                self.out_search = False
+                self.in_search = True
                 self.moving((player_x, player_y))
                 self.attacker(self.ray_value)
             else:
+                self.out_search = True
                 self.route_moving()
         else:
             self.ANY_DIST = False
-            self.route_moving()
-        # ----------------------------------
-        key = pg.key.get_pressed()
-        if key[pg.K_p]:
-            self.moving((player_x, player_y))
-        if key[pg.K_o]:
+            self.out_search = True
             self.route_moving()
 
     def get_death(self):
@@ -200,8 +199,31 @@ class Monster(AnimSprite):
             self.move_state = True
             self.attack_state = False
 
+    def search_switcher(self):
+        waypoints = self.sector.waypoints
+        curr1 = waypoints[self.loop_i][0]
+        curr2 = waypoints[self.loop_i][1]
+        cons_dist = 100
+        mons_x, mons_y = int(self.x), int(self.y)
+        i = 0
+        for cons in waypoints:
+            cons_calc = (abs(mons_x - cons[0])) + (abs(mons_y - cons[1]))
+            if cons_calc < cons_dist:
+                cons_dist = cons_calc
+                self.cons_i = i
+            i += 1
+        curr_dist = (abs(mons_x - curr1)) + (abs(mons_y - curr2))
+        print(curr_dist, cons_dist)
+        if cons_dist > curr_dist:
+            self.cons_swap = True
+        self.in_search = False
+
     def route_moving(self):
         goal_node = self.sector.waypoints[self.loop_i]
+        if self.cons_swap:
+            goal_node = self.sector.waypoints[self.cons_i]
+            self.cons_swap = False
+        # ------------------------------------
         if goal_node == self.map_pos:
             self.loop_i += 1
         elif self.loop_i < len(self.sector.waypoints) - 1:
@@ -363,7 +385,7 @@ class Monster(AnimSprite):
         hor_depth = (y_hor - py) / (sin_a + 0.0001)
         x_hor = px + hor_depth * cos_a
 
-        delta_depth = dy / sin_a
+        delta_depth = dy / (sin_a + 0.0001)
         dx = delta_depth * cos_a
 
         for i in range(MAX_DEPTH):

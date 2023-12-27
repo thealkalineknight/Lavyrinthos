@@ -1,7 +1,5 @@
 # TODO:
 
-# two vars if statement not timer
-
 # CURRENT:
 # PUTTING GUN in melee temp because real will walk and range atk
 
