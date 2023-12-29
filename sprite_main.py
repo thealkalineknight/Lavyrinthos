@@ -21,6 +21,7 @@ class SpriteMain:
         self.IMG_RATIO = self.IMG_WID / self.image.get_height()
         self.sprite_hwid = 0
         self.sprite_ang = 0
+        self.screen_pos = 0
 
     def update(self):
         self.get_sprite()
@@ -58,8 +59,8 @@ class SpriteMain:
 
         self.sprite_hwid = proj_width // 2
         height_shift = proj_height * self.SPRITE_HSHIFT
-        pos = self.screen_x - self.sprite_hwid, HHEIGHT - proj_height // 2 + height_shift
-        self.game.raycasting.obj_rend_list.append((self.norm_dist, image, pos))
+        self.screen_pos = self.screen_x - self.sprite_hwid, HHEIGHT - proj_height // 2 + height_shift
+        self.game.raycasting.obj_rend_list.append((self.norm_dist, image, self.screen_pos))
 
 
 class AnimSprite(SpriteMain):

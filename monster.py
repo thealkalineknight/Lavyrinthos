@@ -178,7 +178,10 @@ class Monster(AnimSprite):
             self.dying_state = True
         elif dmg > 0:
             if self.weapon_ray():
-                self.health -= dmg
+                print(self.screen_pos, self.game.weapon.weapon_pos)
+                if 500 > self.screen_pos[0] > 100:
+                    self.health -= dmg
+                    print('hit')
         # no hurt anim lol
 
     def attacker(self, ray_value):
@@ -213,7 +216,6 @@ class Monster(AnimSprite):
                 self.cons_i = i
             i += 1
         curr_dist = (abs(mons_x - curr1)) + (abs(mons_y - curr2))
-        print(curr_dist, cons_dist)
         if cons_dist > curr_dist:
             self.cons_swap = True
         self.in_search = False
@@ -223,6 +225,7 @@ class Monster(AnimSprite):
         if self.cons_swap:
             goal_node = self.sector.waypoints[self.cons_i]
             self.cons_swap = False
+            print('swapped')
         # ------------------------------------
         if goal_node == self.map_pos:
             self.loop_i += 1
