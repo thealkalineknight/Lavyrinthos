@@ -4,7 +4,8 @@ from sectors import *
 
 class Monster(AnimSprite):
     def __init__(self, game, path=None, pos=None,
-                 wscale=0.6, hscale=0.6, shift=0.38, animation_time=180, angle=None, health=100, mon_type=None):
+                 wscale=0.6, hscale=0.6, shift=0.38, animation_time=180, angle=None, health=100,
+                 mon_type=None, dir_range=6):
         super().__init__(game, path, pos, wscale, hscale, shift, animation_time)
         self.angle = angle
         self.health = health
@@ -49,7 +50,7 @@ class Monster(AnimSprite):
         self.speed = 0.05  # 0.1  #0.01  # sus
         self.loop_i = 0
         #
-        self.DIR_RANGE = 6
+        self.DIR_RANGE = dir_range
         self.dir_orient = 0
         self.ray_value = self.DIR_RANGE + 1
         self.RANGED_DIST = 4
@@ -269,14 +270,15 @@ class Monster(AnimSprite):
     def moving(self, goal):
         if self.move_state:
             next_pos = self.game.pathfinding.get_path(self.map_pos, goal)
-            self.anim_dir(next_pos)
-            next_x, next_y = next_pos
-            pg.draw.rect(self.game.screen, 'blue', (self.game.map.scale * next_x, self.game.map.scale * next_y,
-                                                    self.game.map.scale, self.game.map.scale))
-            angle = math.atan2(next_y + 0.5 - self.y, next_x + 0.5 - self.x)
-            dx = math.cos(angle) * self.speed
-            dy = math.sin(angle) * self.speed
-            self.check_wall_collision(dx, dy)
+            if next_pos not in self.game.obj_config.positions:
+                self.anim_dir(next_pos)
+                next_x, next_y = next_pos
+                pg.draw.rect(self.game.screen, 'blue', (self.game.map.scale * next_x, self.game.map.scale * next_y,
+                                                        self.game.map.scale, self.game.map.scale))
+                angle = math.atan2(next_y + 0.5 - self.y, next_x + 0.5 - self.x)
+                dx = math.cos(angle) * self.speed
+                dy = math.sin(angle) * self.speed
+                self.check_wall_collision(dx, dy)
 
     def anim_dir(self, next_pos):
         if next_pos[1] - self.map_pos[1] != 0:

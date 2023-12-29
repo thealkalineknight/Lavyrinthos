@@ -8,6 +8,7 @@ class ObjConfig:
         self.sprite_list = []
         self.interact_list = []
         self.monster_list = []
+        self.positions = {}
         self.static_sprite_path = 'assets/static_sprites/'
         self.anim_sprite_path = 'assets/anim_sprites/'
         self.monster_path = 'assets/monster/'
@@ -44,9 +45,10 @@ class ObjConfig:
                                wscale=0.05, hscale=0.05, shift=5, inter_type='weapon', iden=2))
 
         add_monster(Monster(game, path=self.monster_path + '/hamster/ham init.png', pos=(4.5, 3.5),
-                            wscale=0.7, hscale=0.7, shift=0.5, angle=4, mon_type='common'))
+                            wscale=0.7, hscale=0.7, shift=0.5, angle=4, mon_type='common', dir_range=10))
 
     def update(self):
+        self.positions = {monster.map_pos for monster in self.monster_list if monster.alive_state}
         [sprite.update() for sprite in self.sprite_list]
         [interact.update() for interact in self.interact_list]
         [monster.update() for monster in self.monster_list]
