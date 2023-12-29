@@ -4,10 +4,11 @@ from sectors import *
 
 class Monster(AnimSprite):
     def __init__(self, game, path=None, pos=None,
-                 wscale=0.6, hscale=0.6, shift=0.38, animation_time=180, angle=None, health=100):
+                 wscale=0.6, hscale=0.6, shift=0.38, animation_time=180, angle=None, health=100, mon_type=None):
         super().__init__(game, path, pos, wscale, hscale, shift, animation_time)
         self.angle = angle
         self.health = health
+        self.mon_type = mon_type
         self.angle_index = 0
         self.idle_fo = self.get_images(self.path + '/front on')
         self.idle_fl = self.get_images(self.path + '/front left')
@@ -36,7 +37,7 @@ class Monster(AnimSprite):
         self.attack_state = False
         #
         self.death_images = self.get_images(self.path + '/death')
-        self.DEATH_IMAGE = self.NO_IMAGE = pg.image.load(self.path + '/death/9.PNG').convert_alpha()
+        self.DEATH_IMAGE = pg.image.load(self.path + '/death/9.PNG').convert_alpha()
         self.alive_state = True
         self.dying_state = False
         #
@@ -72,7 +73,7 @@ class Monster(AnimSprite):
         if self.alive_state:
             self.timed_event()
             self.anim_main()
-            self.determine_move()
+            self.super_det_move()
         else:
             self.image = self.DEATH_IMAGE
         if self.dying_state and self.alive_state:
@@ -138,6 +139,36 @@ class Monster(AnimSprite):
         self.animate(self.idle_images)
 
     # the timer function allows the monster to target player even if behind wall until ray value refreshes
+
+    def super_det_move(self):
+        if self.mon_type == 'common':
+            self.simp_det_move()
+        if self.mon_type == 'boss':
+            self.determine_move()
+
+    def simp_det_move(self):
+        if self.out_search and self.in_search:
+            simple = 0
+        # ------------------------------------
+        player_x, player_y = int(self.game.player.x), int(self.game.player.y)
+        monster_x, monster_y = int(self.x), int(self.y)
+        if (abs(monster_x - player_x)) + (abs(monster_y - player_y)) < self.DIR_RANGE:
+            self.ANY_DIST = True
+            self.raycast()
+            self.get_attacked()
+            if self.ray_value < self.DIR_RANGE:
+                self.out_search = False
+                self.in_search = True
+                self.moving((player_x, player_y))
+                self.attacker(self.ray_value)
+            else:
+                self.out_search = True
+                # self.route_moving()
+        else:
+            self.ANY_DIST = False
+            self.out_search = True
+            # self.route_moving()
+
     def determine_move(self):
         if self.out_search and self.in_search:
             self.search_switcher()
