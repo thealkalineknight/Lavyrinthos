@@ -25,6 +25,7 @@ class Pathfinding:
         self.visited = None
         self.graph = {}
         self.get_graph()
+        self.occupied_pos = self.game.obj_config.positions
 
     def get_path(self, start, goal):
         self.visited = self.astar(start, goal, self.graph)
@@ -65,7 +66,7 @@ class Pathfinding:
 
             # main
             for next_node in next_nodes:
-                if next_node in visited:
+                if next_node in visited or next_node in self.occupied_pos:
                     continue
                 test = Node(cur_node, next_node)
                 test.g = cur_node.g + 1

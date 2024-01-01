@@ -257,8 +257,9 @@ class Monster(AnimSprite):
         goal_node = self.sector.waypoints[self.loop_i]
         if self.cons_swap:
             goal_node = self.sector.waypoints[self.cons_i]
-            self.cons_swap = False
+            self.loop_i = self.cons_i
             print('swapped')
+            self.cons_swap = False
         # ------------------------------------
         if goal_node == self.map_pos:
             self.loop_i += 1

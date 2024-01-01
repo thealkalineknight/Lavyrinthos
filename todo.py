@@ -5,6 +5,8 @@
 # vis span update
 # restruct mons vis span incor
 # key wall bypass
+# loop i cons update
+# obj positions
 
 # CURRENT:
 # PUTTING GUN in melee temp because real will walk and range atk
