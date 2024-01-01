@@ -116,7 +116,7 @@ class Player:
         return (x, y) in self.game.map.gate_map
 
     def get_adjs(self):
-        ways = [-1, 0], [0, -1], [1, 0], [0, 1], [-1, -1], [1, -1], [1, 1], [-1, 1]
+        ways = [-1, 0], [0, -1], [1, 0], [0, 1]  # [-1, -1], [1, -1], [1, 1], [-1, 1]
         area = [(self.map_pos[0] + dx, self.map_pos[1] + dy) for dx, dy in ways]
         area.append(self.map_pos)
         return area

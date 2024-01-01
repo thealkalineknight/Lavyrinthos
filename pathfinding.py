@@ -78,7 +78,7 @@ class Pathfinding:
                 queue.append(test)
                 visited[next_node] = cur_node.pos
 
-        return visited
+        return visited  # not in self.game.obj_config.positions
 
     def get_next_nodes(self, x, y):
         return [(x + dx, y + dy) for dx, dy in self.ways if (x + dx, y + dy) not in self.par_map]

@@ -4,6 +4,7 @@
 # logs:
 # vis span update
 # restruct mons vis span incor
+# key wall bypass
 
 # CURRENT:
 # PUTTING GUN in melee temp because real will walk and range atk
@@ -12,15 +13,12 @@
 # id correlation gate later
 
 # think bus:
-# fix area bypass (for_adj range too large), stand activate too close
 # when you do the finishing gate make a backdrop that leads into a dying viny forest
 # unused: 20
 
 # -----------------------
 
 # trans walls
-# TESTING IN MAIN.PY ON RUN DEF
-# make sure no long dot references
 # if next_pos not in self.game.object_handler.npc_positions:
 # ...
 #

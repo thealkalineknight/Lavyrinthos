@@ -20,11 +20,11 @@ class Game:
 
     def new_game(self):  # if calls property from other class, list after
         self.map = Map(self)
-        self.pathfinding = Pathfinding(self)
         self.player = Player(self)
         self.obj_rend = ObjRend(self)  # must before raycasting
         self.raycasting = RayCasting(self)
         self.obj_config = ObjConfig(self)
+        self.pathfinding = Pathfinding(self)
         self.weapon = Weapon(self)
         self.sound = Sound(self)
 
