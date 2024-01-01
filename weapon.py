@@ -38,7 +38,6 @@ class Weapon(AnimSprite):
     def update(self):
         self.check_anim_time()
         self.animate_atk()
-        self.weapon_up()
         self.swapper()
 
     def swapper(self):
@@ -108,10 +107,7 @@ class Weapon(AnimSprite):
                 if not self.first_find:
                     self.first_find = True
             else:
-                if not self.first_find:
-                    self.pos_inc += 3
-                else:
-                    self.pos_inc += 10
+                self.pos_inc += 20
                 self.weapon_pos = (HWIDTH - self.POS_W // 2, HEIGHT - self.pos_inc)
 
     def weapon_down(self):

@@ -31,8 +31,9 @@ class SpriteMain:
         dy = self.y - self.player.y
         vis_span = max(self.game.raycasting.vis_spans)
 
-        if dx <= vis_span or dy <= vis_span:
+        dlim = max(abs(dx), abs(dy))
 
+        if dlim <= vis_span:
             self.dx, self.dy = dx, dy
             self.theta = math.atan2(dy, dx)
 

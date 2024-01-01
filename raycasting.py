@@ -46,10 +46,10 @@ class RayCasting:
                     self.lock_value = vert_grid
 
                 if vert_grid in self.game.map.cor_map:
-                    if vert_grid in self.game.map.trans_map:
-                        vert_tex = self.game.map.cor_map[vert_grid]
-                        break
-                    else:
+                    # if vert_grid in self.game.map.trans_map:
+                    #    vert_tex = self.game.map.cor_map[vert_grid]
+                    #    break
+                    # else:
                         vert_tex = self.game.map.cor_map[vert_grid]
                         break
                 x_vert += dx
@@ -73,10 +73,10 @@ class RayCasting:
                     self.lock_value = hor_grid
 
                 if hor_grid in self.game.map.cor_map:
-                    if hor_grid in self.game.map.trans_map:
-                        hor_tex = self.game.map.cor_map[hor_grid]
-                        break
-                    else:
+                    # if hor_grid in self.game.map.trans_map:
+                    #    hor_tex = self.game.map.cor_map[hor_grid]
+                    #    break
+                    # else:
                         hor_tex = self.game.map.cor_map[hor_grid]
                         break
                 x_hor += dx

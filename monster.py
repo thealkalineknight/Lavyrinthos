@@ -210,7 +210,6 @@ class Monster(AnimSprite):
             self.dying_state = True
         elif dmg > 0:
             if self.weapon_ray():
-                print(self.screen_pos, self.game.weapon.weapon_pos)
                 if 500 > self.screen_pos[0] > 100:
                     self.health -= dmg
                     print('hit')
