@@ -72,9 +72,7 @@ class Monster(AnimSprite):
 
     def on_run(self):
         if self.alive_state:
-            self.timed_event()
-            self.anim_main()
-            self.super_det_move()
+            self.super_det()
         else:
             self.image = self.DEATH_IMAGE
         if self.dying_state and self.alive_state:
@@ -141,10 +139,14 @@ class Monster(AnimSprite):
 
     # the timer function allows the monster to target player even if behind wall until ray value refreshes
 
-    def super_det_move(self):
-        if self.mon_type == 'common':
+    def super_det(self):
+        if self.mon_type == 'common' and self.DLIM:
+            self.timed_event()
+            self.anim_main()
             self.simp_det_move()
         if self.mon_type == 'boss':
+            self.timed_event()
+            self.anim_main()
             self.determine_move()
 
     def simp_det_move(self):

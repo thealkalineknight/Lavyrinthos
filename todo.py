@@ -1,5 +1,10 @@
 # TODO:
 
+# -----------------------
+# logs:
+# vis span update
+# restruct mons vis span incor
+
 # CURRENT:
 # PUTTING GUN in melee temp because real will walk and range atk
 

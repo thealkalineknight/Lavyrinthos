@@ -22,6 +22,7 @@ class SpriteMain:
         self.sprite_hwid = 0
         self.sprite_ang = 0
         self.screen_pos = 0
+        self.DLIM = False
 
     def update(self):
         self.get_sprite()
@@ -30,10 +31,12 @@ class SpriteMain:
         dx = self.x - self.player.x
         dy = self.y - self.player.y
         vis_span = max(self.game.raycasting.vis_spans)
+        self.DLIM = False
 
         dlim = max(abs(dx), abs(dy))
 
         if dlim <= vis_span:
+            self.DLIM = True
             self.dx, self.dy = dx, dy
             self.theta = math.atan2(dy, dx)
 
