@@ -24,8 +24,8 @@ class ObjConfig:
         # add_sprite(AnimSprite(game, path=self.anim_sprite_path + '/gates/lvl1/LVL1EX2.PNG', pos=(4, 3.5),
         #                      wscale=1.2, hscale=1.2, shift=0.001, anim_time=200))
 
-        add_interact(Interacts(game, path=self.anim_sprite_path + '/gates/LVL1EX1.PNG', pos=(1.5, 0.8),
-                               wscale=1.5, hscale=1.5, shift=-0.1, anim_time=200, inter_type='gate'))
+        add_interact(Interacts(game, path=self.anim_sprite_path + '/gates/LVL1EX1.PNG', pos=(1.5, 1),
+                               wscale=1.4, hscale=1.4, shift=-0.1, anim_time=200, inter_type='gate'))
         # add_sprite(SpriteMain(game, path=self.static_sprite_path + '/mech/LKEYEMPT.PNG', pos=(3.5, 3.5)))
         add_interact(Interacts(game, path=self.anim_sprite_path + 'stands/LKEYEMPT.PNG', pos=(1.5, 7),
                                wscale=0.7, hscale=0.7, shift=0.27, inter_type='stand', iden=1))
