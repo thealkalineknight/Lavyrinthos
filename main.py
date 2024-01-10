@@ -7,6 +7,7 @@ from obj_config import *
 from sound import *
 from pathfinding import *
 from weapon import *
+from interface import *
 
 
 class Game:
@@ -27,6 +28,7 @@ class Game:
         self.pathfinding = Pathfinding(self)
         self.weapon = Weapon(self)
         self.sound = Sound(self)
+        self.interface = Interface(self)
 
     def run(self):
         self.theme()
@@ -52,6 +54,16 @@ class Game:
         # self.map.draw()
         # self.player.draw()
 
+    def pre_mode(self):
+        ui = self.interface
+        while ui.PRE_MODE:
+            pg.display.flip()
+            ui.draw()
+            ui.update()
+            self.check_events()
+        if ui.MAIN_MODE:
+            self.run()
+
     def check_events(self):
         for event in pg.event.get():
             if event.type == pg.QUIT or (event.type == pg.KEYDOWN and event.key == pg.K_ESCAPE):
@@ -65,4 +77,4 @@ class Game:
 
 if __name__ == '__main__':
     game = Game()
-    game.run()
+    game.pre_mode()

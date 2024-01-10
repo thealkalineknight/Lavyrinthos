@@ -2,11 +2,7 @@
 
 # -----------------------
 # logs:
-# vis span update
-# restruct mons vis span incor
-# key wall bypass
-# loop i cons update
-# obj positions
+# log shooting in range judged by spr pos
 
 # CURRENT:
 # PUTTING GUN in melee temp because real will walk and range atk
