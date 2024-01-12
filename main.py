@@ -58,8 +58,8 @@ class Game:
         ui = self.interface
         while ui.PRE_MODE:
             pg.display.flip()
-            ui.draw()
             ui.update()
+            ui.draw()
             self.check_events()
         if ui.MAIN_MODE:
             self.run()
