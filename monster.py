@@ -63,6 +63,7 @@ class Monster(AnimSprite):
         self.in_search = False
         self.cons_swap = False
         self.cons_i = 0
+        self.snooze_state = False
 
     def update(self):
         self.check_sector()
@@ -77,6 +78,19 @@ class Monster(AnimSprite):
             self.image = self.DEATH_IMAGE
         if self.dying_state and self.alive_state:
             self.get_death()
+
+    def super_det(self):
+        if self.mon_type == 'common':
+            if self.DLIM:
+                self.timed_event()
+                self.anim_main()
+                self.simp_det_move()
+            else:
+                self.snooze_state = True
+        if self.mon_type == 'boss':
+            self.timed_event()
+            self.anim_main()
+            self.determine_move()
 
     def timed_event(self):
         if not self.attack_state:
@@ -139,16 +153,6 @@ class Monster(AnimSprite):
 
     # the timer function allows the monster to target player even if behind wall until ray value refreshes
 
-    def super_det(self):
-        if self.mon_type == 'common' and self.DLIM:
-            self.timed_event()
-            self.anim_main()
-            self.simp_det_move()
-        if self.mon_type == 'boss':
-            self.timed_event()
-            self.anim_main()
-            self.determine_move()
-
     def simp_det_move(self):
         if self.out_search and self.in_search:
             simple = 0
@@ -157,6 +161,7 @@ class Monster(AnimSprite):
         monster_x, monster_y = int(self.x), int(self.y)
         if (abs(monster_x - player_x)) + (abs(monster_y - player_y)) < self.DIR_RANGE:
             self.ANY_DIST = True
+            self.snooze_state = False
             self.raycast()
             self.get_attacked()
             if self.ray_value < self.DIR_RANGE:
@@ -166,11 +171,10 @@ class Monster(AnimSprite):
                 self.attacker(self.ray_value)
             else:
                 self.out_search = True
-                # self.route_moving()
         else:
             self.ANY_DIST = False
             self.out_search = True
-            # self.route_moving()
+            self.snooze_state = True
 
     def determine_move(self):
         if self.out_search and self.in_search:

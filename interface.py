@@ -44,6 +44,7 @@ class Interface:
 
         self.limit_key_time()
         if self.key_trigger:
+
             if key[pg.K_DOWN] or key[pg.K_UP]:
                 self.mask = True
 
@@ -52,14 +53,17 @@ class Interface:
             if key[pg.K_UP]:
                 self.key_count -= 1
 
-        if key[pg.K_RETURN]:
-            if self.key_count == 0:
-                self.PRE_MODE = False
-                self.MAIN_MODE = True
-            if self.key_count == 1:
-                o = 0
-            if self.key_count == 2:
-                self.SETT_MODE = True
+            if key[pg.K_RETURN]:
+                if self.key_count == 0:
+                    if not self.first_boot:
+                        self.PRE_MODE = False
+                        self.MAIN_MODE = True
+                    else:
+                        self.mask = True
+                if self.key_count == 1:
+                    o = 0
+                if self.key_count == 2:
+                    self.SETT_MODE = True
 
     def draw_premode(self):
         if self.key_count < 0 or self.key_count > 3:

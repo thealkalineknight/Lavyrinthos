@@ -1,8 +1,10 @@
 # TODO:
+# fixed gui
+# snooze state
 
 # -----------------------
 # logs:
-# log shooting in range judged by spr pos
+# t
 
 # CURRENT:
 # PUTTING GUN in melee temp because real will walk and range atk
