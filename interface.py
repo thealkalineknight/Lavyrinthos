@@ -119,6 +119,11 @@ class Interface:
             self.time_prev = time_now
             self.key_trigger = True
 
+    def aureole(self):
+        blit_it = 0
+        # if down all the way
+        self.game.system.puzzle_state = True
+
     @staticmethod
     def convert_tex(path, res=(MAX_TEX, MAX_TEX)):
         texture = pg.image.load(path).convert_alpha()

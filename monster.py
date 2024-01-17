@@ -480,3 +480,7 @@ class Monster(AnimSprite):
     @property
     def map_pos(self):
         return int(self.x), int(self.y)
+
+    @property
+    def return_type(self):
+        return self.mon_type

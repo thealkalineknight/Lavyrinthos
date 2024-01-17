@@ -1,6 +1,8 @@
 # TODO:
 # fixed gui
 # snooze state
+# sys prep
+# interacts reorder
 
 # -----------------------
 # logs:

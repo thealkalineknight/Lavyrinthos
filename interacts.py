@@ -18,7 +18,9 @@ class Interacts(AnimSprite):
     def update(self):
         self.check_anim_time()
         self.get_sprite()
-        self.check_type()  # CONSTANTLY checking for these!! or fine?
+        key = pg.key.get_pressed()
+        if key[pg.K_e]:
+            self.check_type()
 
     def check_type(self):
         if self.inter_type == 'gate':
@@ -29,52 +31,46 @@ class Interacts(AnimSprite):
             self.weapon_check()
 
     def gate_check(self):
-        key = pg.key.get_pressed()
-        if key[pg.K_e]:
-            if self.gate_prep_check():
-                for adj in self.game.player.get_adjs():
-                    if adj in Proxes.gates:
-                        gate = Proxes.gates[adj]
-                        #
-                        if self.frame_count < len(self.unlocked_images) - 1:
-                            self.unlocked_images.rotate(-1)
-                            self.image = self.unlocked_images[0]
-                            self.frame_count += 1
-                        elif self.frame_count == len(self.unlocked_images) - 1:
-                            self.game.player.gate_fullopen = True
-                            gate[0] = True
+        if self.gate_prep_check():
+            for adj in self.game.player.get_adjs():
+                if adj in Proxes.gates:
+                    gate = Proxes.gates[adj]
+                    #
+                    if self.frame_count < len(self.unlocked_images) - 1:
+                        self.unlocked_images.rotate(-1)
+                        self.image = self.unlocked_images[0]
+                        self.frame_count += 1
+                    elif self.frame_count == len(self.unlocked_images) - 1:
+                        self.game.player.gate_fullopen = True
+                        gate[0] = True
 
     def stand_check(self):
-        key = pg.key.get_pressed()
-        if key[pg.K_e]:
-            for thing in Proxes.locks:
-                lock = Proxes.locks[thing]
-                for item in Proxes.stands:
-                    stand = Proxes.stands[item]
-                    # if lock id = stand id, and stand id = sprite id
-                    if lock[1] == stand[1] and stand[1] == self.iden:  # a bit close for now
-                        # if pos = stand pos and key id true
-                        if self.game.player.map_pos == item and lock[0]:
-                            stand[0] = True
-                            self.image = self.KEYED_IMAGE
+        for thing in Proxes.locks:
+            lock = Proxes.locks[thing]
+            for item in Proxes.stands:
+                stand = Proxes.stands[item]
+                # if lock id = stand id, and stand id = sprite id
+                if lock[1] == stand[1] and stand[1] == self.iden:  # a bit close for now
+                    # if pos = stand pos and key id true
+                    if self.game.player.map_pos == item and lock[0]:
+                        stand[0] = True
+                        self.image = self.KEYED_IMAGE
 
     def weapon_check(self):
-        key = pg.key.get_pressed()
-        if key[pg.K_e]:
-            for item in Proxes.pickups:
-                pickup = Proxes.pickups[item]
-                # if thing id = sprite id
-                if pickup[1] == self.iden:  # a bit close for now
-                    # if pos = thing pos
-                    if self.game.player.map_pos == item:
-                        if not pickup[0]:
-                            self.image = self.NO_IMAGE
-                            weapon = self.game.weapon
-                            weapon.first_find = False
-                            weapon.draw_switch = True
-                            weapon.INVENTORY[pickup[2]] = True
-                            self.weapon_prep_check(pickup[2])
-                            pickup[0] = True
+        for item in Proxes.pickups:
+            pickup = Proxes.pickups[item]
+            # if thing id = sprite id
+            if pickup[1] == self.iden:  # a bit close for now
+                # if pos = thing pos
+                if self.game.player.map_pos == item:
+                    if not pickup[0]:
+                        self.image = self.NO_IMAGE
+                        weapon = self.game.weapon
+                        weapon.first_find = False
+                        weapon.draw_switch = True
+                        weapon.INVENTORY[pickup[2]] = True
+                        self.weapon_prep_check(pickup[2])
+                        pickup[0] = True
 
     def gate_prep_check(self):
         for item in Proxes.stands:

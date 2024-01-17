@@ -8,6 +8,7 @@ from sound import *
 from pathfinding import *
 from weapon import *
 from interface import *
+from system import *
 
 
 class Game:
@@ -29,6 +30,7 @@ class Game:
         self.weapon = Weapon(self)
         self.sound = Sound(self)
         self.interface = Interface(self)
+        self.system = System(self)
 
     def run(self):
         self.theme()
