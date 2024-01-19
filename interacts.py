@@ -31,7 +31,7 @@ class Interacts(AnimSprite):
             self.weapon_check()
 
     def gate_check(self):
-        if self.gate_prep_check():
+        if self.gate_prep_check():  # change to system done
             for adj in self.game.player.get_adjs():
                 if adj in Proxes.gates:
                     gate = Proxes.gates[adj]

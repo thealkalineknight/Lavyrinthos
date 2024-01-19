@@ -16,10 +16,11 @@ class System:
         self.gate_check = Interacts.gate_prep_check(game)
         self.end_pos = (0, 100)
 
-    def puzzle(self):
+    def puzzle(self):  # check when instance or update?
         if self.gate_check:
             if self.monster.return_type == 'boss':
                 self.game.interface.aureole()
+                #
                 if self.puzzle_state:
                     self.monster.health = 101
                     if self.monster.health == 60:
@@ -27,9 +28,8 @@ class System:
 
     def fought(self):
         if self.monster.return_type == 'boss':
-            null = 0
+            null = 0  # lock health, recede
             ui = 0
-            play_prox_raise = 0
             self.fought_state = True  # in gate check
             self.end_crusade()
 

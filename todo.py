@@ -1,12 +1,23 @@
 # TODO:
+# draw:
+# aureole
+# finish interface[mons, level]
+# main:
+# Aureole
+# New map, enemies
+# Wane, lock finish
+# Retreat
+# End point
+# Mon ui, con ui
+# Configure
+# Settings
+
+# -----------------------
+# logs:
 # fixed gui
 # snooze state
 # sys prep
 # interacts reorder
-
-# -----------------------
-# logs:
-# t
 
 # CURRENT:
 # PUTTING GUN in melee temp because real will walk and range atk
