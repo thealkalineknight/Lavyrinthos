@@ -18,6 +18,7 @@
 # snooze state
 # sys prep
 # interacts reorder
+# interacts one more if statement in locks func ; interface ; sys
 
 # CURRENT:
 # PUTTING GUN in melee temp because real will walk and range atk

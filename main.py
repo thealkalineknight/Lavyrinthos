@@ -9,6 +9,7 @@ from pathfinding import *
 from weapon import *
 from interface import *
 from system import *
+from interacts import *
 
 
 class Game:

@@ -16,7 +16,7 @@ class Interface:
         self.MASK_BTN = self.convert_tex(self.path + 'BTNSELEC.png', (self.btn_w, self.btn_h))
         self.SETT_SCR = self.convert_tex(self.path + 'UISETTIN.png', (WIDTH, HEIGHT))
         self.TEST_ME = self.convert_tex(self.path + 'TESTME.png', (400, 500))
-        self.AUREOLE = self.convert_tex(self.path + 'img.png', (100, 100))
+        self.AUREOLE = self.convert_tex(self.path + 'TESTORB.png', (100, 100))
         self.PRE_MODE = True
         self.SETT_MODE = False
         self.MAIN_MODE = False
@@ -122,13 +122,12 @@ class Interface:
             self.time_prev = time_now
             self.key_trigger = True
 
-    def aureole(self):
+    def aureole(self):  # change to sprite later
         if self.aur_pos == HHEIGHT:
-            self.game.system.puzzle_state = True
+            self.game.system.aureole_state = True
         else:
             self.aur_pos += 1
         self.screen.blit(self.AUREOLE, (self.BTN_X, self.aur_pos))
-
 
     @staticmethod
     def convert_tex(path, res=(MAX_TEX, MAX_TEX)):

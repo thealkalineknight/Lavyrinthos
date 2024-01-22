@@ -55,6 +55,8 @@ class Interacts(AnimSprite):
                     if self.game.player.map_pos == item and lock[0]:
                         stand[0] = True
                         self.image = self.KEYED_IMAGE
+                        if self.gate_prep_check():
+                            self.game.system.puzzle()
 
     def weapon_check(self):
         for item in Proxes.pickups:

@@ -70,6 +70,7 @@ class Monster(AnimSprite):
         self.check_anim_time()
         self.get_sprite()
         self.on_run()
+        # self.game.interface.aureole()
 
     def on_run(self):
         if self.alive_state:
@@ -480,7 +481,3 @@ class Monster(AnimSprite):
     @property
     def map_pos(self):
         return int(self.x), int(self.y)
-
-    @property
-    def return_type(self):
-        return self.mon_type
