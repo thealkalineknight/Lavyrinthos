@@ -19,6 +19,7 @@
 # sys prep
 # interacts reorder
 # interacts one more if statement in locks func ; interface ; sys
+# interacts > interface; sprite, mons > gate > system
 
 # CURRENT:
 # PUTTING GUN in melee temp because real will walk and range atk

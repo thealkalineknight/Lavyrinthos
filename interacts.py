@@ -14,6 +14,7 @@ class Interacts(AnimSprite):
         #
         self.KEYED_IMAGE = pg.image.load('assets/anim_sprites/stands/LKEYFULL.PNG').convert_alpha()
         self.NO_IMAGE = pg.image.load('assets/anim_sprites/NOTEX.PNG').convert_alpha()
+        self.aur_trigger = False
 
     def update(self):
         self.check_anim_time()
@@ -21,6 +22,8 @@ class Interacts(AnimSprite):
         key = pg.key.get_pressed()
         if key[pg.K_e]:
             self.check_type()
+        if self.aur_trigger:
+            self.game.interface.aureole()
 
     def check_type(self):
         if self.inter_type == 'gate':
@@ -31,7 +34,7 @@ class Interacts(AnimSprite):
             self.weapon_check()
 
     def gate_check(self):
-        if self.gate_prep_check():  # change to system done
+        if self.game.system.retreat_state:  # change to system done
             for adj in self.game.player.get_adjs():
                 if adj in Proxes.gates:
                     gate = Proxes.gates[adj]
@@ -43,6 +46,7 @@ class Interacts(AnimSprite):
                     elif self.frame_count == len(self.unlocked_images) - 1:
                         self.game.player.gate_fullopen = True
                         gate[0] = True
+                        self.game.system.crusade_state = True
 
     def stand_check(self):
         for thing in Proxes.locks:
@@ -56,7 +60,7 @@ class Interacts(AnimSprite):
                         stand[0] = True
                         self.image = self.KEYED_IMAGE
                         if self.gate_prep_check():
-                            self.game.system.puzzle()
+                            self.aur_trigger = True
 
     def weapon_check(self):
         for item in Proxes.pickups:

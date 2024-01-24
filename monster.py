@@ -64,6 +64,7 @@ class Monster(AnimSprite):
         self.cons_swap = False
         self.cons_i = 0
         self.snooze_state = False
+        self.health_lock = False
 
     def update(self):
         self.check_sector()
@@ -92,6 +93,8 @@ class Monster(AnimSprite):
             self.timed_event()
             self.anim_main()
             self.determine_move()
+            if self.game.system.aureole_state:
+                self.vulnerable()
 
     def timed_event(self):
         if not self.attack_state:
@@ -186,7 +189,8 @@ class Monster(AnimSprite):
         if (abs(monster_x - player_x)) + (abs(monster_y - player_y)) < self.DIR_RANGE:
             self.ANY_DIST = True
             self.raycast()
-            self.get_attacked()
+            if not self.health_lock:
+                self.get_attacked()
             if self.ray_value < self.DIR_RANGE:
                 self.out_search = False
                 self.in_search = True
@@ -199,6 +203,16 @@ class Monster(AnimSprite):
             self.ANY_DIST = False
             self.out_search = True
             self.route_moving()
+
+    def vulnerable(self):
+        if self.health > 300:
+            self.health -= 10000
+            print('anim aureole affected')
+        if self.health < self.game.system.THRESHOLD:
+            if self.health > 0:
+                self.health_lock = True
+            # print('retreat while disappear anim')  # retreat state
+            self.game.system.retreat_state = True
 
     def get_death(self):
         self.move_state = False

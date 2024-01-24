@@ -8,24 +8,21 @@ class System:
         self.CRUSADE = None
         #
         self.aureole_state = False
-        self.fought_state = False
+        self.retreat_state = False
         self.crusade_state = False
         #
         # self.monster = Monster
-        self.end_pos = (0, 100)
-
-    def puzzle(self):
-        self.game.interface.aureole()
-        #
-        if self.aureole_state:
-            o = 0
-            # mons ; weaken() : if sys; threshold state: mons ; lock up, recede, sys; fought st
+        self.THRESHOLD = 200
+        self.END_POS = (0, 100)
 
     def end_crusade(self):
-        if self.game.player.map_pos == self.end_pos:
+        if self.game.player.map_pos == self.END_POS:
             ui = 0
             terminate = 0
             self.configure()  # crusade phase where?
 
     def configure(self):
         o = 0
+
+# interacts > interface; sprite, mons > gate > system
+# insert UIs
