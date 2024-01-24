@@ -62,3 +62,7 @@ class ObjConfig:
 
     def add_monster(self, mon):
         self.monster_list.append(mon)
+
+    def summon_aureole(self):
+        self.add_interact(Interacts(self.game, path=self.anim_sprite_path + 'pickups/AUREOLE/TESTORB.png', pos=(1.5, 2),
+                                    wscale=1, hscale=1, shift=0.27, inter_type='aureole', iden=1))

@@ -15,6 +15,8 @@ class Interacts(AnimSprite):
         self.KEYED_IMAGE = pg.image.load('assets/anim_sprites/stands/LKEYFULL.PNG').convert_alpha()
         self.NO_IMAGE = pg.image.load('assets/anim_sprites/NOTEX.PNG').convert_alpha()
         self.aur_trigger = False
+        self.aur_trigger2 = False
+        self.aur_pos = 0
 
     def update(self):
         self.check_anim_time()
@@ -24,6 +26,7 @@ class Interacts(AnimSprite):
             self.check_type()
         if self.aur_trigger:
             self.game.interface.aureole()
+            # self.form_aureole()
 
     def check_type(self):
         if self.inter_type == 'gate':
@@ -32,6 +35,8 @@ class Interacts(AnimSprite):
             self.stand_check()
         if self.inter_type == 'weapon':
             self.weapon_check()
+        if self.aur_trigger2 and self.inter_type == 'aureole':
+            self.aureole_check()
 
     def gate_check(self):
         if self.game.system.retreat_state:  # change to system done
@@ -77,6 +82,19 @@ class Interacts(AnimSprite):
                         weapon.INVENTORY[pickup[2]] = True
                         self.weapon_prep_check(pickup[2])
                         pickup[0] = True
+
+    def form_aureole(self):  # PROTO SCRATCH DUMB
+        self.game.obj_config.summon_aureole()
+        if self.aur_pos == HHEIGHT:
+            self.aur_trigger2 = True
+        else:
+            self.aur_pos += 1
+        self.screen_pos[1] = self.aur_pos
+
+    def aureole_check(self):
+        if self.game.player.map_pos == self.screen_pos:
+            self.image = self.NO_IMAGE
+            self.game.system.aureole_state = True
 
     def gate_prep_check(self):
         for item in Proxes.stands:
