@@ -213,6 +213,7 @@ class Monster(AnimSprite):
                 self.health_lock = True
             # print('retreat while disappear anim')  # retreat state
             self.game.system.retreat_state = True
+            print('thresholded')
 
     def get_death(self):
         self.move_state = False

@@ -16,17 +16,19 @@ class Interacts(AnimSprite):
         self.NO_IMAGE = pg.image.load('assets/anim_sprites/NOTEX.PNG').convert_alpha()
         self.aur_trigger = False
         self.aur_trigger2 = False
-        self.aur_pos = 0
+        self.aur_pos = -5
+        self.aur_fin_state = False
 
     def update(self):
+        self.form_aureole()  # temp
         self.check_anim_time()
         self.get_sprite()
         key = pg.key.get_pressed()
         if key[pg.K_e]:
             self.check_type()
         if self.aur_trigger:
-            self.game.interface.aureole()
-            # self.form_aureole()
+            # self.game.interface.aureole()
+            self.form_aureole()
 
     def check_type(self):
         if self.inter_type == 'gate':
@@ -83,16 +85,22 @@ class Interacts(AnimSprite):
                         self.weapon_prep_check(pickup[2])
                         pickup[0] = True
 
-    def form_aureole(self):  # PROTO SCRATCH DUMB
-        self.game.obj_config.summon_aureole()
-        if self.aur_pos == HHEIGHT:
-            self.aur_trigger2 = True
-        else:
-            self.aur_pos += 1
-        self.screen_pos[1] = self.aur_pos
+    def form_aureole(self):
+        if self.inter_type == 'aureole':
+            if not self.aur_fin_state:  # change init shift later
+                self.x, self.y = self.game.player.map_pos
+                self.x += 3  # temp
+                self.aur_fin_state = True
+
+            if self.anim_trigger:
+                if self.aur_pos == 1:
+                    self.aur_trigger2 = True
+                else:
+                    self.aur_pos += 0.5
+            self.SPRITE_HSHIFT = self.aur_pos
 
     def aureole_check(self):
-        if self.game.player.map_pos == self.screen_pos:
+        if self.game.player.map_pos == (self.x, self.y):
             self.image = self.NO_IMAGE
             self.game.system.aureole_state = True
 
