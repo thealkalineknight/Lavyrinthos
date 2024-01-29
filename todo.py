@@ -11,6 +11,9 @@
 # Mon ui, con ui
 # Configure
 # Settings
+# finals:
+# make adjustments
+# windows
 
 # -----------------------
 # logs:
@@ -20,6 +23,7 @@
 # interacts reorder
 # interacts one more if statement in locks func ; interface ; sys
 # interacts > interface; sprite, mons > gate > system
+# aureole variable pos
 
 # CURRENT:
 # PUTTING GUN in melee temp because real will walk and range atk

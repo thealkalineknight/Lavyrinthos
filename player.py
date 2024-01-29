@@ -121,7 +121,44 @@ class Player:
         area.append(self.map_pos)
         return area
 
-    # -------------------------
+    def get_all_adjs(self):
+        ways = [1, 0], [1, 1], [0, 1], [-1, 1], [-1, 0], [-1, -1], [0, -1], [1, -1]
+        deg_ang = math.degrees(self.angle)
+        angle_index = 0
+        if deg_ang < 0:
+            deg_ang += 360
+        if deg_ang < 22.5 or 337.5 < deg_ang < 360:
+            angle_index = 0
+        if 22.4 < deg_ang < 67.5:
+            angle_index = 1
+        if 67.4 < deg_ang < 112.5:
+            angle_index = 2
+        if 112.4 < deg_ang < 157.5:
+            angle_index = 3
+        if 157.4 < deg_ang < 202.5:
+            angle_index = 4
+        if 202.4 < deg_ang < 247.5:
+            angle_index = 5
+        if 247.4 < deg_ang < 292.5:
+            angle_index = 6
+        if 292.4 < deg_ang < 337.5:
+            angle_index = 7
+        first_div, last_div, i = [], [], 0
+        for pos in ways:
+            if i > 7:
+                i = 0
+            if i < angle_index:
+                last_div.append(pos)
+            else:
+                first_div.append(pos)
+            i += 1
+        first_div += last_div
+        # print(first_div)
+        area = [(self.map_pos[0] + dx, self.map_pos[1] + dy) for dx, dy in first_div]
+        area.append(self.map_pos)
+        for pos in area:
+            if pos not in self.game.map.cor_map:
+                return pos
 
     def draw(self):
         pg.draw.line(self.game.screen, 'yellow', (self.x * self.game.map.scale, self.y * self.game.map.scale),
