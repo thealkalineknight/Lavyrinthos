@@ -24,5 +24,5 @@ class System:
     def configure(self):
         o = 0
 
-# interacts > interface; sprite, mons > gate > system
+# interacts > interface; sprite, mons > gate > system  (crusade state next)
 # insert UIs

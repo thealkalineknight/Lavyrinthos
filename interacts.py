@@ -20,15 +20,14 @@ class Interacts(AnimSprite):
         self.aur_fin_state = False
 
     def update(self):
-        # self.form_aureole() # temp
         self.check_anim_time()
         self.get_sprite()
         key = pg.key.get_pressed()
         if key[pg.K_e]:
-            self.form_aureole()
+            # self.form_aureole() # test
             self.check_type()
         if self.aur_trigger:
-            # self.game.interface.aureole()
+            # self.game.interface.aureole() # old
             self.form_aureole()
 
     def check_type(self):
@@ -42,7 +41,7 @@ class Interacts(AnimSprite):
             self.aureole_check()
 
     def gate_check(self):
-        if self.game.system.retreat_state:  # change to system done
+        if self.game.system.retreat_state:
             for adj in self.game.player.get_adjs():
                 if adj in Proxes.gates:
                     gate = Proxes.gates[adj]
@@ -88,10 +87,11 @@ class Interacts(AnimSprite):
 
     def form_aureole(self):
         if self.inter_type == 'aureole':
-            if not self.aur_fin_state:  # change init shift later
-                self.x, self.y = self.game.player.get_all_adjs()[0], self.game.player.get_all_adjs()[1]
-                # print(self.game.player.map_pos, (self.x, self.y))
-                # make adjustments
+            if not self.aur_fin_state:
+                self.x, self.y = self.game.player.get_all_adjs()[0], self.game.player.get_an_adjs()[1]
+
+                self.x += 0.5
+                self.y += 0.5
                 self.aur_fin_state = True
 
             if self.anim_trigger:

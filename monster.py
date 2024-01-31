@@ -206,7 +206,7 @@ class Monster(AnimSprite):
 
     def vulnerable(self):
         if self.health > 300:
-            self.health -= 10000
+            self.health -= 10000  # no anim pain
             print('anim aureole affected')
         if self.health < self.game.system.THRESHOLD:
             if self.health > 0:

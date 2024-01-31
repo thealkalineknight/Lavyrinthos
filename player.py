@@ -121,7 +121,7 @@ class Player:
         area.append(self.map_pos)
         return area
 
-    def get_all_adjs(self):
+    def get_an_adjs(self):
         ways = [1, 0], [1, 1], [0, 1], [-1, 1], [-1, 0], [-1, -1], [0, -1], [1, -1]
         deg_ang = math.degrees(self.angle)
         angle_index = 0
