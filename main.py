@@ -4,6 +4,7 @@ from player import *
 from raycasting import *
 from objectrenderer import *
 from obj_config import *
+from obj_config2 import *
 from sound import *
 from pathfinding import *
 from weapon import *
@@ -20,25 +21,57 @@ class Game:
         self.clock = pg.time.Clock()
         self.dtime = 1
         self.new_game()
+        self.running = True
 
     def new_game(self):  # if calls property from other class, list after
+        self.CRUSADE = 1
         self.map = Map(self)
         self.player = Player(self)
         self.obj_rend = ObjRend(self)  # must before raycasting
         self.raycasting = RayCasting(self)
-        self.obj_config = ObjConfig(self)
+        self.obj_config = self.prep_obj('obj')  # ObjConfig(self)
         self.pathfinding = Pathfinding(self)
         self.weapon = Weapon(self)
         self.sound = Sound(self)
         self.interface = Interface(self)
         self.system = System(self)
 
-    def run(self):
+    def refresh_game(self):
+        self.map = Map(self)
+        self.obj_config = self.prep_obj('obj')
+
+    def prep_obj(self, mode):
+        book = {}
+        if mode == 'obj':
+            book = {1: ObjConfig(self), 2: ObjConfig2(self)}
+        if mode == 'map':
+            book = {1: Map(self), 2: Map(self)}
+        print(self.CRUSADE)
+        return book[self.CRUSADE]
+
+    def pausing(self):
+        ui = self.interface
+        ui.INTER_MODE = True
+        while ui.INTER_MODE:
+            pg.display.flip()
+            ui.update()
+            ui.draw()
+            self.check_events()
+        if ui.MAIN_MODE:
+            self.CRUSADE += 1
+            self.refresh_game()
+            self.running = True
+            self.run()
+
+    def run(self):  # undefeatable True loop, must either weld with draw() or depend on variable
         self.theme()
         while True:
-            self.update()
-            self.draw()
-            self.check_events()
+            if not self.running:
+                self.pausing()
+            else:
+                self.update()
+                self.draw()
+                self.check_events()
 
     def update(self):
         self.player.update()
@@ -81,3 +114,7 @@ class Game:
 if __name__ == '__main__':
     game = Game()
     game.pre_mode()
+
+
+# problems:
+# new game() placement, while True, window open connected to level running; loading screen

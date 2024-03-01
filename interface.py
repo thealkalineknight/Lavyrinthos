@@ -20,6 +20,7 @@ class Interface:
         self.PRE_MODE = True
         self.SETT_MODE = False
         self.MAIN_MODE = False
+        self.INTER_MODE = False
         self.key_count = 0
         self.time_prev = pg.time.get_ticks()
         self.key_trigger = False
@@ -35,12 +36,16 @@ class Interface:
             self.sett_mode()
         elif self.PRE_MODE:
             self.pre_mode()
+        elif self.INTER_MODE:
+            self.inter_mode()
 
     def draw(self):
         if self.SETT_MODE:
             self.draw_settmode()
         elif self.PRE_MODE:
             self.draw_premode()
+        elif self.INTER_MODE:
+            self.draw_intermode()
 
     def pre_mode(self):
         key = pg.key.get_pressed()
@@ -114,6 +119,15 @@ class Interface:
                 self.key_count = 0
                 self.first_boot = False
             self.screen.blit(self.MASK_BTN, (self.BTN_X, self.BTN_BANK[self.key_count]))
+
+    def inter_mode(self):
+        key = pg.key.get_pressed()
+        if key[pg.K_RETURN]:
+            self.INTER_MODE = False
+            self.MAIN_MODE = True
+
+    def draw_intermode(self):
+        self.screen.blit(self.SETT_SCR, (0, 0))
 
     def limit_key_time(self):
         self.key_trigger = False
