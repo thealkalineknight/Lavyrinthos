@@ -93,8 +93,8 @@ class Monster(AnimSprite):
             self.timed_event()
             self.anim_main()
             self.determine_move()
-            if self.game.system.aureole_state:
-                self.vulnerable()
+            # if self.game.system.aureole_state:
+            #    self.vulnerable()
 
     def timed_event(self):
         if not self.attack_state:
