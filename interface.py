@@ -17,6 +17,10 @@ class Interface:
         self.SETT_SCR = self.convert_tex(self.path + 'UISETTIN.png', (WIDTH, HEIGHT))
         self.TEST_ME = self.convert_tex(self.path + 'TESTME.png', (400, 500))
         self.AUREOLE = self.convert_tex(self.path + 'TESTORB.png', (100, 100))
+        self.INTER_SCR = self.convert_tex(self.path + 'UIMAINSC.png', (WIDTH, HEIGHT))
+        self.FIN_BTN = self.convert_tex(self.path + 'BTNNEW.png', (self.btn_w, self.btn_h))
+        self.FIN_CRUSD = self.convert_tex(self.path + 'BTNLOAD.png', (self.btn_w, self.btn_h))
+        self.FIN_SCRT = self.convert_tex(self.path + 'BTNSETT.png', (self.btn_w, self.btn_h))
         self.PRE_MODE = True
         self.SETT_MODE = False
         self.MAIN_MODE = False
@@ -101,11 +105,11 @@ class Interface:
             if key[pg.K_UP]:
                 self.key_count -= 1
 
-        if key[pg.K_RETURN]:
-            if self.key_count == 0:
-                o = 0
-            if self.key_count == 2:
-                p = 9
+            if key[pg.K_RETURN]:
+                if self.key_count == 0:
+                    o = 0
+                if self.key_count == 2:
+                    p = 9
 
     def draw_settmode(self):
         if self.key_count < 0 or self.key_count > 3:
