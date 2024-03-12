@@ -28,6 +28,7 @@ class Interacts(AnimSprite):
         if self.aur_trigger or key[pg.K_l]:
             # self.game.interface.aureole() # old
             self.form_aureole()
+            print('doing')
         if self.game.system.crusade_state:
             self.game.system.end_crusade()
 
