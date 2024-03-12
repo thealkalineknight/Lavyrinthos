@@ -19,8 +19,8 @@ class Interface:
         self.AUREOLE = self.convert_tex(self.path + 'TESTORB.png', (100, 100))
         self.INTER_SCR = self.convert_tex(self.path + 'UIFINLV1.png', (WIDTH, HEIGHT))
         self.FIN_BTN = self.convert_tex(self.path + 'FINBTN.png', (self.btn_w, self.btn_h))
-        self.FIN_CRUSD = self.convert_tex(self.path + 'FINCRUSD.png', (self.btn_w, self.btn_h))
-        self.FIN_SCRT = self.convert_tex(self.path + 'FINSECRT.png', (self.btn_w, self.btn_h))
+        self.FIN_CRUSD = self.convert_tex(self.path + 'FINCRUSD.png', (750, 150))
+        self.FIN_SCRT = self.convert_tex(self.path + 'FINSECRT.png', (self.btn_w // 1.5, self.btn_h // 1.5))
         self.PRE_MODE = True
         self.SETT_MODE = False
         self.MAIN_MODE = False
@@ -32,6 +32,7 @@ class Interface:
         self.mask = False
         self.BTN_X = HWIDTH - self.btn_w / 2
         self.BTN_BANK = {0: 250, 1: 350, 2: 450, 3: 530}
+        self.INTER_BANK = {0: [self.BTN_X, HEIGHT - HHEIGHT // 3]}
         self.first_boot = True
         self.aur_pos = 0
 
@@ -70,6 +71,10 @@ class Interface:
                     if not self.first_boot:
                         self.PRE_MODE = False
                         self.MAIN_MODE = True
+                        #
+                        self.key_count = 0
+                        self.mask = False
+                        self.first_boot = True
                     else:
                         self.mask = True
                 if self.key_count == 1:
@@ -147,18 +152,18 @@ class Interface:
                         self.mask = True
 
     def draw_intermode(self):
-        if self.key_count < 0 or self.key_count > 1:
+        if self.key_count < 0 or self.key_count > 0:
             self.key_count = 0
 
         self.screen.blit(self.INTER_SCR, (0, 0))
-        self.screen.blit(self.FIN_CRUSD, (self.BTN_X, self.BTN_BANK[0]))
-        self.screen.blit(self.FIN_SCRT, (self.BTN_X, self.BTN_BANK[1]))
-        self.screen.blit(self.FIN_BTN, (self.BTN_X, self.BTN_BANK[2]))
+        self.screen.blit(self.FIN_CRUSD, (HWIDTH // 2, HHEIGHT // 4))
+        self.screen.blit(self.FIN_SCRT, (HWIDTH // 2, HHEIGHT - HHEIGHT // 4))
+        self.screen.blit(self.FIN_BTN, (self.INTER_BANK[0][0], self.INTER_BANK[0][1]))
         if self.mask:
             if self.first_boot:
                 self.key_count = 0
                 self.first_boot = False
-            self.screen.blit(self.MASK_BTN, (self.BTN_X, self.BTN_BANK[self.key_count]))
+            self.screen.blit(self.MASK_BTN, (self.INTER_BANK[self.key_count][0], self.INTER_BANK[self.key_count][1]))
 
     def limit_key_time(self):
         self.key_trigger = False
