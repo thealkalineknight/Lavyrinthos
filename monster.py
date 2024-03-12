@@ -93,8 +93,8 @@ class Monster(AnimSprite):
             self.timed_event()
             self.anim_main()
             self.determine_move()
-            # if self.game.system.aureole_state:
-            #    self.vulnerable()
+            if self.game.system.aureole_state:
+                self.vulnerable()
 
     def timed_event(self):
         if not self.attack_state:
@@ -209,11 +209,12 @@ class Monster(AnimSprite):
             self.health -= 10000  # no anim pain
             print('anim aureole affected')
         if self.health < self.game.system.THRESHOLD:
-            if self.health > 0:
-                self.health_lock = True
+            # if self.health > 0:
+            #    self.health_lock = True
             # print('retreat while disappear anim')  # retreat state
             self.game.system.retreat_state = True
             print('thresholded')
+            # temp: grayed this func, and vulnerable turn on. obj config health
 
     def get_death(self):
         self.move_state = False

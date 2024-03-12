@@ -26,7 +26,7 @@ class Interacts(AnimSprite):
         if key[pg.K_e]:
             # self.form_aureole() # test
             self.check_type()
-        if self.aur_trigger:
+        if self.aur_trigger or key[pg.K_l]:
             # self.game.interface.aureole() # old
             self.form_aureole()
 
@@ -88,7 +88,7 @@ class Interacts(AnimSprite):
     def form_aureole(self):
         if self.inter_type == 'aureole':
             if not self.aur_fin_state:
-                self.x, self.y = self.game.player.get_all_adjs()[0], self.game.player.get_an_adjs()[1]
+                self.x, self.y = self.game.player.get_an_adjs()[0], self.game.player.get_an_adjs()[1]
 
                 self.x += 0.5
                 self.y += 0.5
@@ -102,7 +102,7 @@ class Interacts(AnimSprite):
             self.SPRITE_HSHIFT = self.aur_pos
 
     def aureole_check(self):
-        if self.game.player.map_pos == (self.x, self.y):
+        if self.game.player.map_pos == (int(self.x), int(self.y)):
             self.image = self.NO_IMAGE
             self.game.system.aureole_state = True
 

@@ -46,7 +46,7 @@ class Game:
             book = {1: ObjConfig(self), 2: ObjConfig2(self)}
         if mode == 'map':
             book = {1: Map(self), 2: Map(self)}
-        print(self.CRUSADE)
+        # print(self.CRUSADE)
         return book[self.CRUSADE]
 
     def pausing(self):
