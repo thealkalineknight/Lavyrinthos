@@ -17,7 +17,6 @@ class System:
         if self.game.player.map_pos == self.END_POS:
             self.game.running = False
             self.game.player.x, self.game.player.y = 1.5, 3.5
-        # self.crusade_state = False
 
     def check_secrets(self):
         count = 0

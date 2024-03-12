@@ -60,6 +60,7 @@ class Game:
         if ui.MAIN_MODE:
             self.CRUSADE += 1
             self.refresh_game()
+            self.system.crusade_state = False
             self.running = True
             self.run()
 
