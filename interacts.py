@@ -24,11 +24,12 @@ class Interacts(AnimSprite):
         self.get_sprite()
         key = pg.key.get_pressed()
         if key[pg.K_e]:
-            # self.form_aureole() # test
             self.check_type()
         if self.aur_trigger or key[pg.K_l]:
             # self.game.interface.aureole() # old
             self.form_aureole()
+        if self.game.system.crusade_state:
+            self.game.system.end_crusade()
 
     def check_type(self):
         if self.inter_type == 'gate':

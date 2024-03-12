@@ -213,7 +213,6 @@ class Monster(AnimSprite):
             #    self.health_lock = True
             # print('retreat while disappear anim')  # retreat state
             self.game.system.retreat_state = True
-            print('thresholded')
             # temp: grayed this func, and vulnerable turn on. obj config health
 
     def get_death(self):

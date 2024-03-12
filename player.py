@@ -28,7 +28,6 @@ class Player:
     def interact_event(self):
         key = pg.key.get_pressed()
         if key[pg.K_e]:
-            # self.game.running = False
             for adj in self.get_adjs():
                 if adj in Proxes.locks:
                     lock = Proxes.locks[adj]

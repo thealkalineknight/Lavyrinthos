@@ -4,8 +4,6 @@ from proxes import *
 class System:
     def __init__(self, game):
         self.game = game
-        self.LEGEND = 1
-        self.CRUSADE = 1
         #
         self.aureole_state = False
         self.retreat_state = False
@@ -13,16 +11,13 @@ class System:
         #
         # self.monster = Monster
         self.THRESHOLD = 200
-        self.END_POS = (23, 13)
+        self.END_POS = (1, 0)
 
     def end_crusade(self):
-        # if self.game.player.map_pos == self.END_POS:
-        ui = 0
-        terminate = 0
-        self.configure()  # crusade phase where?
-
-    def configure(self):
-        self.CRUSADE += 1
+        if self.game.player.map_pos == self.END_POS:
+            self.game.running = False
+            self.game.player.x, self.game.player.y = 1.5, 3.5
+        # self.crusade_state = False
 
     def check_secrets(self):
         count = 0

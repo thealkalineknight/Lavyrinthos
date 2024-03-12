@@ -67,6 +67,7 @@ class Game:
         self.theme()
         while True:
             if not self.running:
+                self.theme()
                 self.pausing()
             else:
                 self.update()
