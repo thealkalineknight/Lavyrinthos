@@ -3,7 +3,7 @@
 # aureole
 # finish interface[mons, level]
 # main:
-# Aureole
+# normal activate Aureole
 # New map, enemies
 # Wane, lock finish
 # Retreat
