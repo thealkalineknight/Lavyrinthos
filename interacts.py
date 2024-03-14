@@ -14,7 +14,6 @@ class Interacts(AnimSprite):
         #
         self.KEYED_IMAGE = pg.image.load('assets/anim_sprites/stands/LKEYFULL.PNG').convert_alpha()
         self.NO_IMAGE = pg.image.load('assets/anim_sprites/NOTEX.PNG').convert_alpha()
-        self.aur_trigger2 = False
         self.aur_pos = -5
         self.aur_fin_state = False
 
@@ -37,7 +36,7 @@ class Interacts(AnimSprite):
             self.stand_check()
         if self.inter_type == 'weapon':
             self.weapon_check()
-        if self.aur_trigger2 and self.inter_type == 'aureole':
+        if self.game.system.aur_trigger2 and self.inter_type == 'aureole':
             self.aureole_check()
 
     def gate_check(self):
@@ -95,7 +94,7 @@ class Interacts(AnimSprite):
                     self.aur_fin_state = True
                 else:
                     if self.aur_pos == 1:
-                        self.aur_trigger2 = True
+                        self.game.system.aur_trigger2 = True
                     else:
                         self.aur_pos += 0.5
                 self.SPRITE_HSHIFT = self.aur_pos
@@ -103,7 +102,8 @@ class Interacts(AnimSprite):
     def aureole_check(self):
         if self.game.player.map_pos == (int(self.x), int(self.y)):
             self.image = self.NO_IMAGE
-            self.game.system.aureole_state = True
+            system = self.game.system
+            system.aureole_state = True
 
     def gate_prep_check(self):
         for item in Proxes.stands:

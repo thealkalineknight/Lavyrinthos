@@ -13,10 +13,13 @@ class System:
         self.THRESHOLD = 200
         self.END_POS = (37, 23)
         self.aur_trigger = False
+        self.aur_trigger2 = False
 
     def end_crusade(self):
         if self.game.player.map_pos == self.END_POS:
             self.game.running = False
+            self.aur_trigger = False
+            self.aur_trigger2 = False
             self.game.player.x, self.game.player.y = 1.5, 3.5
 
     def check_secrets(self):
