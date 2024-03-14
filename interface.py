@@ -7,6 +7,7 @@ class Interface:
         self.game = game
         self.screen = game.screen
         self.btn_w, self.btn_h = 300, 100
+        self.btn_hw, self.btn_hh = self.btn_w // 1.5, self.btn_h // 1.5
         self.path = 'assets/interface/'
         self.MAIN_SCR = self.convert_tex(self.path + 'UIMAINSC.png', (WIDTH, HEIGHT))
         self.BTN_NEW = self.convert_tex(self.path + 'BTNNEW.png', (self.btn_w, self.btn_h))
@@ -20,7 +21,7 @@ class Interface:
         self.INTER_SCR = self.convert_tex(self.path + 'UIFINLV1.png', (WIDTH, HEIGHT))
         self.FIN_BTN = self.convert_tex(self.path + 'FINBTN.png', (self.btn_w, self.btn_h))
         self.FIN_CRUSD = self.convert_tex(self.path + 'FINCRUSD.png', (750, 150))
-        self.FIN_SCRT = self.convert_tex(self.path + 'FINSECRT.png', (self.btn_w // 1.5, self.btn_h // 1.5))
+        self.FIN_SCRT = self.convert_tex(self.path + 'FINSECRT.png', (self.btn_hw, self.btn_hh))
         self.PRE_MODE = True
         self.SETT_MODE = False
         self.MAIN_MODE = False
@@ -158,12 +159,18 @@ class Interface:
         self.screen.blit(self.INTER_SCR, (0, 0))
         self.screen.blit(self.FIN_CRUSD, (HWIDTH // 2, HHEIGHT // 4))
         self.screen.blit(self.FIN_SCRT, (HWIDTH // 2, HHEIGHT - HHEIGHT // 4))
+        self.game.obj_rend.draw_nums(self.percent_secrets(),
+                                     (HWIDTH // 2) + self.btn_hw + 10, HHEIGHT - HHEIGHT // 4 + 10, True)
         self.screen.blit(self.FIN_BTN, (self.INTER_BANK[0][0], self.INTER_BANK[0][1]))
         if self.mask:
             if self.first_boot:
                 self.key_count = 0
                 self.first_boot = False
             self.screen.blit(self.MASK_BTN, (self.INTER_BANK[self.key_count][0], self.INTER_BANK[self.key_count][1]))
+
+    def percent_secrets(self):
+        box = self.game.system.check_secrets()
+        return int(box[0] / box[1] * 100)
 
     def limit_key_time(self):
         self.key_trigger = False

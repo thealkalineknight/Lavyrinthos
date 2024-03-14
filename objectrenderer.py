@@ -12,6 +12,10 @@ class ObjRend:
         self.sky_image_1 = self.convert_tex('assets/background/SKY1.1.PNG', (WIDTH, HHEIGHT))
         self.sky_image_2 = self.convert_tex('assets/background/SKY1.2.PNG', (WIDTH, HHEIGHT))
         self.ground_image = self.convert_tex('assets/background/FSAND.PNG', (WIDTH, HHEIGHT))
+        self.digit_prep = [self.convert_tex(f'assets/interface/nums/NUM{i}.PNG', (50, 50))
+                           for i in range(10)]
+        self.DIGIT_IMGS = dict(zip(map(str, range(10)), self.digit_prep))
+        self.PERCENT_IMG = self.convert_tex('assets/interface/nums/NUMPER.PNG', (50, 50))
 
     def draw(self):
         self.draw_bg()
@@ -30,6 +34,15 @@ class ObjRend:
         obj_list = sorted(self.game.raycasting.obj_rend_list, key=lambda t: t[0], reverse=True)
         for depth, image, pos in obj_list:
             self.screen.blit(image, pos)
+
+    def draw_nums(self, item, x, y, percent):
+        num = str(item)
+        offset = 0
+        for i, char in enumerate(num):
+            self.screen.blit(self.DIGIT_IMGS[char], ((i * 40) + x, y))
+            offset = i + 1
+        if percent:
+            self.screen.blit(self.PERCENT_IMG, ((offset * 40) + x, y))
 
     def init_wall_tex(self):
         return {  # don't use 0, creates empty space

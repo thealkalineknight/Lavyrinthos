@@ -24,13 +24,16 @@ class System:
 
     def check_secrets(self):
         count = 0
-        for item in Proxes.locks:
-            lock = Proxes.locks[item]
-            if lock[0]:
+        total = 0
+        for item in Proxes.secrets:
+            total += 1
+            secret = Proxes.secrets[item]
+            if secret[0]:
                 count += 1
-        sec_file = open('secrets.txt', 'a+')
-        sec_file.write(str(count))
-        sec_file.close()
+        return count, total
+        # sec_file = open('secrets.txt', 'a+')
+        # sec_file.write(str(count))
+        # sec_file.close()
 
 
 # interacts > interface; sprite, mons > gate > system  (crusade state next)
