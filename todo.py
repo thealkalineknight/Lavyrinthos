@@ -3,6 +3,7 @@
 # aureole
 # finish interface[mons, level]
 # main:
+# [ gate align so no see when hugging invisible wall, broke wall see double if speed run ]
 # normal activate Aureole
 # New map, enemies
 # Wane, lock finish

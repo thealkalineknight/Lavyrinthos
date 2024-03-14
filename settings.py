@@ -5,7 +5,7 @@ HWIDTH = WIDTH // 2
 HHEIGHT = HEIGHT // 2
 FPS = 100  # 30  # ok please fix it so everything isn't flash lightning in my face when not potato mode
 
-PLYR_POS = 1.5, 3.5  # 28, 3.5
+PLYR_POS = 1.5, 3.5  # 33, 23  # 28, 3.5
 PLYR_ANGLE = 0
 PLYR_SPD = 0.004
 PLYR_RSPD = 0.002

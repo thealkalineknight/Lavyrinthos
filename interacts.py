@@ -14,7 +14,6 @@ class Interacts(AnimSprite):
         #
         self.KEYED_IMAGE = pg.image.load('assets/anim_sprites/stands/LKEYFULL.PNG').convert_alpha()
         self.NO_IMAGE = pg.image.load('assets/anim_sprites/NOTEX.PNG').convert_alpha()
-        self.aur_trigger = False
         self.aur_trigger2 = False
         self.aur_pos = -5
         self.aur_fin_state = False
@@ -25,10 +24,9 @@ class Interacts(AnimSprite):
         key = pg.key.get_pressed()
         if key[pg.K_e]:
             self.check_type()
-        if self.aur_trigger or key[pg.K_l]:
-            # self.game.interface.aureole() # old
+        if self.game.system.aur_trigger or key[pg.K_l]:
             self.form_aureole()
-            print('doing')
+            # self.game.interface.aureole()  # old
         if self.game.system.crusade_state:
             self.game.system.end_crusade()
 
@@ -69,7 +67,7 @@ class Interacts(AnimSprite):
                         stand[0] = True
                         self.image = self.KEYED_IMAGE
                         if self.gate_prep_check():
-                            self.aur_trigger = True
+                            self.game.system.aur_trigger = True
 
     def weapon_check(self):
         for item in Proxes.pickups:
@@ -89,19 +87,18 @@ class Interacts(AnimSprite):
 
     def form_aureole(self):
         if self.inter_type == 'aureole':
-            if not self.aur_fin_state:
-                self.x, self.y = self.game.player.get_an_adjs()[0], self.game.player.get_an_adjs()[1]
-
-                self.x += 0.5
-                self.y += 0.5
-                self.aur_fin_state = True
-
             if self.anim_trigger:
-                if self.aur_pos == 1:
-                    self.aur_trigger2 = True
+                if not self.aur_fin_state:
+                    self.x, self.y = self.game.player.get_an_adjs()[0], self.game.player.get_an_adjs()[1]
+                    self.x += 0.5
+                    self.y += 0.5
+                    self.aur_fin_state = True
                 else:
-                    self.aur_pos += 0.5
-            self.SPRITE_HSHIFT = self.aur_pos
+                    if self.aur_pos == 1:
+                        self.aur_trigger2 = True
+                    else:
+                        self.aur_pos += 0.5
+                self.SPRITE_HSHIFT = self.aur_pos
 
     def aureole_check(self):
         if self.game.player.map_pos == (int(self.x), int(self.y)):

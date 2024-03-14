@@ -11,7 +11,8 @@ class System:
         #
         # self.monster = Monster
         self.THRESHOLD = 200
-        self.END_POS = (1, 0)
+        self.END_POS = (37, 23)
+        self.aur_trigger = False
 
     def end_crusade(self):
         if self.game.player.map_pos == self.END_POS:

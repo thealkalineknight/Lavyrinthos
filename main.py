@@ -29,40 +29,12 @@ class Game:
         self.player = Player(self)
         self.obj_rend = ObjRend(self)  # must before raycasting
         self.raycasting = RayCasting(self)
-        self.obj_config = self.prep_obj('obj')  # ObjConfig(self)
+        self.obj_config = ObjConfig(self)
         self.pathfinding = Pathfinding(self)
         self.weapon = Weapon(self)
         self.sound = Sound(self)
         self.interface = Interface(self)
         self.system = System(self)
-
-    def refresh_game(self):
-        self.map = Map(self)
-        self.obj_config = self.prep_obj('obj')
-
-    def prep_obj(self, mode):
-        book = {}
-        if mode == 'obj':
-            book = {1: ObjConfig(self), 2: ObjConfig2(self)}
-        if mode == 'map':
-            book = {1: Map(self), 2: Map(self)}
-        # print(self.CRUSADE)
-        return book[self.CRUSADE]
-
-    def pausing(self):
-        ui = self.interface
-        ui.INTER_MODE = True
-        while ui.INTER_MODE:
-            pg.display.flip()
-            ui.update()
-            ui.draw()
-            self.check_events()
-        if ui.MAIN_MODE:
-            self.CRUSADE += 1
-            self.refresh_game()
-            self.system.crusade_state = False
-            self.running = True
-            self.run()
 
     def run(self):  # undefeatable True loop, must either weld with draw() or depend on variable
         self.theme()
@@ -91,6 +63,34 @@ class Game:
         # self.screen.fill('black')
         # self.map.draw()
         # self.player.draw()
+
+    def pausing(self):
+        ui = self.interface
+        ui.INTER_MODE = True
+        while ui.INTER_MODE:
+            pg.display.flip()
+            ui.update()
+            ui.draw()
+            self.check_events()
+        if ui.MAIN_MODE:
+            self.CRUSADE += 1
+            self.refresh_game()
+            self.system.crusade_state = False
+            self.running = True
+            self.run()
+
+    def refresh_game(self):
+        self.map = Map(self)  # proxes
+        self.obj_config = self.prep_obj('obj')
+
+    def prep_obj(self, mode):
+        book = {}
+        if mode == 'obj':
+            book = {1: ObjConfig(self), 2: ObjConfig2(self)}
+        if mode == 'map':
+            book = {1: Map(self), 2: Map(self)}
+        # print(self.CRUSADE)
+        return book[self.CRUSADE]
 
     def pre_mode(self):
         ui = self.interface
