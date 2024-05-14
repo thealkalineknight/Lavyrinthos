@@ -8,8 +8,10 @@ class Interface:
         self.screen = game.screen
         self.btn_w, self.btn_h = 300, 100
         self.btn_hw, self.btn_hh = self.btn_w // 1.5, self.btn_h // 1.5
+        self.curs_w, self.curs_h = 130, 50
         self.path = 'assets/interface/'
         self.MAIN_SCR = self.convert_tex(self.path + 'UIMAINSC.png', (WIDTH, HEIGHT))
+        self.CURSOR = self.convert_tex(self.path + 'CURSOR.png', (self.curs_w, self.curs_h))
         self.BTN_NEW = self.convert_tex(self.path + 'BTNNEW.png', (self.btn_w, self.btn_h))
         self.BTN_LOAD = self.convert_tex(self.path + 'BTNLOAD.png', (self.btn_w, self.btn_h))
         self.BTN_SETT = self.convert_tex(self.path + 'BTNSETT.png', (self.btn_w, self.btn_h))
@@ -82,6 +84,7 @@ class Interface:
                     o = 0
                 if self.key_count == 2:
                     self.SETT_MODE = True
+                    self.reset_select()
 
     def draw_premode(self):
         if self.key_count < 0 or self.key_count > 3:
@@ -97,6 +100,7 @@ class Interface:
                 self.key_count = 0
                 self.first_boot = False
             self.screen.blit(self.MASK_BTN, (self.BTN_X, self.BTN_BANK[self.key_count]))
+            self.screen.blit(self.CURSOR, (self.BTN_X - self.curs_w, self.BTN_BANK[self.key_count] + self.curs_h // 2))
 
     def sett_mode(self):
         key = pg.key.get_pressed()
@@ -112,6 +116,7 @@ class Interface:
                 self.key_count -= 1
 
             if key[pg.K_RETURN]:
+                self.mask = True
                 if self.key_count == 0:
                     o = 0
                 if self.key_count == 2:
@@ -129,6 +134,7 @@ class Interface:
                 self.key_count = 0
                 self.first_boot = False
             self.screen.blit(self.MASK_BTN, (self.BTN_X, self.BTN_BANK[self.key_count]))
+            self.screen.blit(self.CURSOR, (self.BTN_X - self.curs_w, self.BTN_BANK[self.key_count] + self.curs_h // 2))
 
     def inter_mode(self):
         key = pg.key.get_pressed()
@@ -171,6 +177,10 @@ class Interface:
     def percent_secrets(self):
         box = self.game.system.check_secrets()
         return int(box[0] / box[1] * 100)
+
+    def reset_select(self):
+        self.mask = False
+        self.key_count = 0
 
     def limit_key_time(self):
         self.key_trigger = False

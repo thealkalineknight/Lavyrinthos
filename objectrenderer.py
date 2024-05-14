@@ -8,7 +8,6 @@ class ObjRend:
         self.screen = game.screen
         self.wall_tex = self.init_wall_tex()
         self.bg_offset = 0
-        self.ground_offset = 0
         self.sky_image_1 = self.convert_tex('assets/background/SKY1.1.PNG', (WIDTH, HHEIGHT))
         self.sky_image_2 = self.convert_tex('assets/background/SKY1.2.PNG', (WIDTH, HHEIGHT))
         self.ground_image = self.convert_tex('assets/background/FSAND.PNG', (WIDTH, HHEIGHT))
@@ -16,13 +15,16 @@ class ObjRend:
                            for i in range(10)]
         self.DIGIT_IMGS = dict(zip(map(str, range(10)), self.digit_prep))
         self.PERCENT_IMG = self.convert_tex('assets/interface/nums/NUMPER.PNG', (50, 50))
+        self.r2112 = 12
 
     def draw(self):
         self.draw_bg()
         self.render_objs()
 
     def draw_bg(self):
-        self.bg_offset = (self.bg_offset + 4.5 * self.game.player.rel) % WIDTH
+        # print(self.bg_offset + 4.5 * self.game.player.rel, (self.bg_offset + 4.5 * self.game.player.rel) % WIDTH)
+        self.bg_offset = (self.bg_offset + 4.5 * self.game.player.rel) % WIDTH  # del rel for moving sky
+
         self.screen.blit(self.sky_image_1, (-self.bg_offset, 0))  # neg sign must go here or blinking
         self.screen.blit(self.sky_image_2, (-self.bg_offset + WIDTH, 0))
 
