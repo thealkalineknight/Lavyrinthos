@@ -21,6 +21,7 @@ class SpriteMain:
         self.IMG_RATIO = self.IMG_WID / self.image.get_height()
         self.sprite_hwid = 0
         self.sprite_ang = 0
+        self.angle_index = 0
         self.screen_pos = 0
         self.DLIM = False
 
@@ -66,12 +67,56 @@ class SpriteMain:
         self.screen_pos = self.screen_x - self.sprite_hwid, HHEIGHT - proj_height // 2 + height_shift
         self.game.raycasting.obj_rend_list.append((self.norm_dist, image, self.screen_pos))
 
+    def get_ang_index(self, variable):
+        if self.sprite_ang < 0:
+            self.sprite_ang += 360
+
+        if self.sprite_ang < 22.5 or 337.5 < self.sprite_ang < 360:
+            self.angle_index = variable
+
+        if 22.4 < self.sprite_ang < 67.5:
+            self.angle_index = variable + 1
+            if self.angle_index > 7:
+                self.angle_index -= 8
+
+        if 67.4 < self.sprite_ang < 112.5:
+            self.angle_index = variable + 2
+            if self.angle_index > 7:
+                self.angle_index -= 8
+
+        if 112.4 < self.sprite_ang < 157.5:
+            self.angle_index = variable + 3
+            if self.angle_index > 7:
+                self.angle_index -= 8
+
+        if 157.4 < self.sprite_ang < 202.5:
+            self.angle_index = variable + 4
+            if self.angle_index > 7:
+                self.angle_index -= 8
+
+        if 202.4 < self.sprite_ang < 247.5:
+            self.angle_index = variable + 5
+            if self.angle_index > 7:
+                self.angle_index -= 8
+
+        if 247.4 < self.sprite_ang < 292.5:
+            self.angle_index = variable + 6
+            if self.angle_index > 7:
+                self.angle_index -= 8
+
+        if 292.4 < self.sprite_ang < 337.5:
+            self.angle_index = variable + 7
+            if self.angle_index > 7:
+                self.angle_index -= 8
+
 
 class AnimSprite(SpriteMain):
     def __init__(self, game, path=None,
-                 pos=(0, 0), wscale=0.8, hscale=0.8, shift=0.15, anim_time=120):
+                 pos=(0, 0), wscale=0.8, hscale=0.8, shift=0.15, anim_time=120, angle=0, anim_type='const'):
         super().__init__(game, path, pos, wscale, hscale, shift)
         self.anim_time = anim_time
+        self.angle = angle
+        self.anim_type = anim_type
         self.path = path.rsplit('/', 1)[0]
         self.images = self.get_images(self.path)
         self.anim_time_prev = pg.time.get_ticks()
@@ -79,8 +124,11 @@ class AnimSprite(SpriteMain):
 
     def update(self):
         super().update()
-        self.check_anim_time()
-        self.animate(self.images)
+        if self.anim_type == 'const':
+            self.check_anim_time()
+            self.animate(self.images)
+        else:
+            self.stat_animate(self.images)
 
     def animate(self, images):
         if self.anim_trigger:
@@ -93,6 +141,10 @@ class AnimSprite(SpriteMain):
         if anim_time_now - self.anim_time_prev > self.anim_time:
             self.anim_time_prev = anim_time_now
             self.anim_trigger = True
+
+    def stat_animate(self, images):
+        self.get_ang_index(self.angle)
+        self.image = images[self.angle_index]
 
     def get_images(self, path):
         images = deque()

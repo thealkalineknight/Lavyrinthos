@@ -1,4 +1,8 @@
 # TODO:
+# nu:
+# level 2
+# saving
+
 # draw:
 # aureole
 # finish interface[mons, level]

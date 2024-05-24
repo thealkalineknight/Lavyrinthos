@@ -4,13 +4,11 @@ from sectors import *
 
 class Monster(AnimSprite):
     def __init__(self, game, path=None, pos=None,
-                 wscale=0.6, hscale=0.6, shift=0.38, animation_time=180, angle=None, health=100,
+                 wscale=0.6, hscale=0.6, shift=0.38, animation_time=180, angle=0, health=100,
                  mon_type=None, dir_range=6):
-        super().__init__(game, path, pos, wscale, hscale, shift, animation_time)
-        self.angle = angle
+        super().__init__(game, path, pos, wscale, hscale, shift, animation_time, angle)
         self.health = health
         self.mon_type = mon_type
-        self.angle_index = 0
         self.idle_fo = self.get_images(self.path + '/front on')
         self.idle_fl = self.get_images(self.path + '/front left')
         self.idle_sl = self.get_images(self.path + '/side left')
@@ -104,55 +102,8 @@ class Monster(AnimSprite):
                 self.ray_value = self.DIR_RANGE + 1
 
     def anim_main(self):
-        if self.sprite_ang < 0:
-            self.sprite_ang += 360
-
-        if self.sprite_ang < 22.5 or 337.5 < self.sprite_ang < 360:
-            self.angle_index = self.angle
-            self.idle_images = self.perspectives[self.angle_index]
-
-        if 22.4 < self.sprite_ang < 67.5:
-            self.angle_index = self.angle + 1
-            if self.angle_index > 7:
-                self.angle_index -= 8
-            self.idle_images = self.perspectives[self.angle_index]
-
-        if 67.4 < self.sprite_ang < 112.5:
-            self.angle_index = self.angle + 2
-            if self.angle_index > 7:
-                self.angle_index -= 8
-            self.idle_images = self.perspectives[self.angle_index]
-
-        if 112.4 < self.sprite_ang < 157.5:
-            self.angle_index = self.angle + 3
-            if self.angle_index > 7:
-                self.angle_index -= 8
-            self.idle_images = self.perspectives[self.angle_index]
-
-        if 157.4 < self.sprite_ang < 202.5:
-            self.angle_index = self.angle + 4
-            if self.angle_index > 7:
-                self.angle_index -= 8
-            self.idle_images = self.perspectives[self.angle_index]
-
-        if 202.4 < self.sprite_ang < 247.5:
-            self.angle_index = self.angle + 5
-            if self.angle_index > 7:
-                self.angle_index -= 8
-            self.idle_images = self.perspectives[self.angle_index]
-
-        if 247.4 < self.sprite_ang < 292.5:
-            self.angle_index = self.angle + 6
-            if self.angle_index > 7:
-                self.angle_index -= 8
-            self.idle_images = self.perspectives[self.angle_index]
-
-        if 292.4 < self.sprite_ang < 337.5:
-            self.angle_index = self.angle + 7
-            if self.angle_index > 7:
-                self.angle_index -= 8
-            self.idle_images = self.perspectives[self.angle_index]
-
+        self.get_ang_index(self.angle)
+        self.idle_images = self.perspectives[self.angle_index]
         self.animate(self.idle_images)
 
     # the timer function allows the monster to target player even if behind wall until ray value refreshes
@@ -204,7 +155,7 @@ class Monster(AnimSprite):
             self.out_search = True
             self.route_moving()
 
-    def vulnerable(self):
+    def vulnerable(self):  # rig improved system
         if self.health > 300:
             self.health -= 10000  # no anim pain
             print('anim aureole affected')

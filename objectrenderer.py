@@ -8,8 +8,7 @@ class ObjRend:
         self.screen = game.screen
         self.wall_tex = self.init_wall_tex()
         self.bg_offset = 0
-        self.sky_image_1 = self.convert_tex('assets/background/SKY1.1.PNG', (WIDTH, HHEIGHT))
-        self.sky_image_2 = self.convert_tex('assets/background/SKY1.2.PNG', (WIDTH, HHEIGHT))
+        self.sky_image = self.convert_tex('assets/background/SKY.PNG', (WIDTH, HHEIGHT))
         self.ground_image = self.convert_tex('assets/background/FSAND.PNG', (WIDTH, HHEIGHT))
         self.digit_prep = [self.convert_tex(f'assets/interface/nums/NUM{i}.PNG', (50, 50))
                            for i in range(10)]
@@ -25,8 +24,8 @@ class ObjRend:
         # print(self.bg_offset + 4.5 * self.game.player.rel, (self.bg_offset + 4.5 * self.game.player.rel) % WIDTH)
         self.bg_offset = (self.bg_offset + 4.5 * self.game.player.rel) % WIDTH  # del rel for moving sky
 
-        self.screen.blit(self.sky_image_1, (-self.bg_offset, 0))  # neg sign must go here or blinking
-        self.screen.blit(self.sky_image_2, (-self.bg_offset + WIDTH, 0))
+        self.screen.blit(self.sky_image, (-self.bg_offset, 0))  # neg sign must go here or blinking
+        self.screen.blit(self.sky_image, (-self.bg_offset + WIDTH, 0))
 
         self.screen.blit(self.ground_image, (-self.bg_offset, HHEIGHT))
         self.screen.blit(self.ground_image, (-self.bg_offset + WIDTH, HHEIGHT))

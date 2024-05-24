@@ -118,7 +118,7 @@ class Interface:
             if key[pg.K_RETURN]:
                 self.mask = True
                 if self.key_count == 0:
-                    o = 0
+                    o = 1
                 if self.key_count == 2:
                     p = 9
 
