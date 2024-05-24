@@ -1,6 +1,5 @@
 import pygame as pg
 from settings import *
-from proxes import *
 
 
 class RayCasting:
@@ -12,6 +11,7 @@ class RayCasting:
         self.vis_spans = []
         self.secret_value = 0, 0
         self.lock_value = 0, 0
+        self.proxes = self.game.proxes
 
     def update(self):
         self.raycast()
@@ -40,9 +40,9 @@ class RayCasting:
 
             for i in range(MAX_DEPTH):
                 vert_grid = int(x_vert), int(y_vert)
-                if vert_grid in Proxes.secrets:
+                if vert_grid in self.proxes.secrets:
                     self.secret_value = vert_grid
-                if vert_grid in Proxes.locks:
+                if vert_grid in self.proxes.locks:
                     self.lock_value = vert_grid
 
                 if vert_grid in self.game.map.cor_map:
@@ -67,9 +67,9 @@ class RayCasting:
 
             for i in range(MAX_DEPTH):
                 hor_grid = int(x_hor), int(y_hor)
-                if hor_grid in Proxes.secrets:
+                if hor_grid in self.proxes.secrets:
                     self.secret_value = hor_grid
-                if hor_grid in Proxes.locks:
+                if hor_grid in self.proxes.locks:
                     self.lock_value = hor_grid
 
                 if hor_grid in self.game.map.cor_map:
@@ -114,14 +114,14 @@ class RayCasting:
             depth, proj_height, texture, offset = values
 
             # conv to func when done
-            if self.secret_value in Proxes.secrets:
-                secret = Proxes.secrets[self.secret_value]
+            if self.secret_value in self.proxes.secrets:
+                secret = self.proxes.secrets[self.secret_value]
                 if secret[0]:
                     if self.game.player.secret_open and texture == 6:
                         texture = 9
 
-            if self.lock_value in Proxes.locks:
-                lock = Proxes.locks[self.lock_value]
+            if self.lock_value in self.proxes.locks:
+                lock = self.proxes.locks[self.lock_value]
                 if lock[0]:
                     if texture == 2:
                         texture = 3

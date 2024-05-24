@@ -1,16 +1,20 @@
 import sys
 from map import *
+from proxes import *
 from player import *
 from raycasting import *
+from sectors import *
 from objectrenderer import *
 from obj_config import *
-from obj_config2 import *
 from sound import *
 from pathfinding import *
 from weapon import *
 from interface import *
 from system import *
-from interacts import *
+from map2 import *
+from proxes2 import *
+from sectors2 import *
+from obj_config2 import *
 
 
 class Game:
@@ -26,9 +30,11 @@ class Game:
     def new_game(self):  # if calls property from other class, list after
         self.CRUSADE = 1
         self.map = Map(self)
+        self.proxes = Proxes
         self.player = Player(self)
         self.obj_rend = ObjRend(self)  # must before raycasting
         self.raycasting = RayCasting(self)
+        self.sector = Sector
         self.obj_config = ObjConfig(self)
         self.pathfinding = Pathfinding(self)
         self.weapon = Weapon(self)
@@ -80,15 +86,21 @@ class Game:
             self.run()
 
     def refresh_game(self):
-        self.map = Map(self)  # proxes
-        self.obj_config = self.prep_obj('obj')
+        self.map = self.prep_class('map')
+        self.proxes = self.prep_class('prox')
+        self.sector = self.prep_class('sec')
+        self.obj_config = self.prep_class('obj')
 
-    def prep_obj(self, mode):
+    def prep_class(self, mode):  # obj rend sky ground ; interface ; sys ; main
         book = {}
+        if mode == 'map':
+            book = {1: Map(self), 2: Map2(self)}
+        if mode == 'prox':
+            book = {1: Proxes, 2: Proxes2}
+        if mode == 'sec':
+            book = {1: Sector, 2: Sector2}
         if mode == 'obj':
             book = {1: ObjConfig(self), 2: ObjConfig2(self)}
-        if mode == 'map':
-            book = {1: Map(self), 2: Map(self)}
         # print(self.CRUSADE)
         return book[self.CRUSADE]
 

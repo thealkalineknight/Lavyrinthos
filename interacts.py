@@ -1,5 +1,4 @@
 from sprite_main import *
-from proxes import *
 
 
 class Interacts(AnimSprite):
@@ -16,6 +15,7 @@ class Interacts(AnimSprite):
         self.NO_IMAGE = pg.image.load('assets/anim_sprites/NOTEX.PNG').convert_alpha()
         self.aur_pos = -5
         self.aur_fin_state = False
+        self.proxes = self.game.proxes
 
     def update(self):
         self.check_anim_time()
@@ -42,8 +42,8 @@ class Interacts(AnimSprite):
     def gate_check(self):
         if self.game.system.retreat_state:
             for adj in self.game.player.get_adjs():
-                if adj in Proxes.gates:
-                    gate = Proxes.gates[adj]
+                if adj in self.proxes.gates:
+                    gate = self.proxes.gates[adj]
                     #
                     if self.frame_count < len(self.unlocked_images) - 1:
                         self.unlocked_images.rotate(-1)
@@ -55,10 +55,10 @@ class Interacts(AnimSprite):
                         self.game.system.crusade_state = True
 
     def stand_check(self):
-        for thing in Proxes.locks:
-            lock = Proxes.locks[thing]
-            for item in Proxes.stands:
-                stand = Proxes.stands[item]
+        for thing in self.proxes.locks:
+            lock = self.proxes.locks[thing]
+            for item in self.proxes.stands:
+                stand = self.proxes.stands[item]
                 # if lock id = stand id, and stand id = sprite id
                 if lock[1] == stand[1] and stand[1] == self.iden:  # a bit close for now
                     # if pos = stand pos and key id true
@@ -69,8 +69,8 @@ class Interacts(AnimSprite):
                             self.game.system.aur_trigger = True
 
     def weapon_check(self):
-        for item in Proxes.pickups:
-            pickup = Proxes.pickups[item]
+        for item in self.proxes.pickups:
+            pickup = self.proxes.pickups[item]
             # if thing id = sprite id
             if pickup[1] == self.iden:  # a bit close for now
                 # if pos = thing pos
@@ -106,8 +106,8 @@ class Interacts(AnimSprite):
             system.aureole_state = True
 
     def gate_prep_check(self):
-        for item in Proxes.stands:
-            stand = Proxes.stands[item]
+        for item in self.proxes.stands:
+            stand = self.proxes.stands[item]
             if not stand[0]:
                 return False
         return True

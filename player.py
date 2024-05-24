@@ -1,7 +1,6 @@
 from settings import *
 import pygame as pg
 import math
-from proxes import *
 
 
 class Player:
@@ -29,8 +28,8 @@ class Player:
         key = pg.key.get_pressed()
         if key[pg.K_e]:
             for adj in self.get_adjs():
-                if adj in Proxes.locks:
-                    lock = Proxes.locks[adj]
+                if adj in self.game.proxes.locks:
+                    lock = self.game.proxes.locks[adj]
                     lock[0] = True
 
     def timed_event(self):
@@ -106,8 +105,8 @@ class Player:
         key = pg.key.get_pressed()
         if key[pg.K_e]:
             for adj in self.get_adjs():
-                if adj in Proxes.secrets:
-                    secret = Proxes.secrets[adj]
+                if adj in self.game.proxes.secrets:
+                    secret = self.game.proxes.secrets[adj]
                     secret[0] = True
                     self.secret_open = True
         return (x, y) in self.game.map.secret_map

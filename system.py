@@ -1,6 +1,3 @@
-from proxes import *
-
-
 class System:
     def __init__(self, game):
         self.game = game
@@ -25,9 +22,9 @@ class System:
     def check_secrets(self):
         count = 0
         total = 0
-        for item in Proxes.secrets:
+        for item in self.game.proxes.secrets:
             total += 1
-            secret = Proxes.secrets[item]
+            secret = self.game.proxes.secrets[item]
             if secret[0]:
                 count += 1
         return count, total

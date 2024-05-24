@@ -1,5 +1,4 @@
 from sprite_main import *
-from sectors import *
 
 
 class Monster(AnimSprite):
@@ -40,8 +39,8 @@ class Monster(AnimSprite):
         self.alive_state = True
         self.dying_state = False
         #
-        self.sector = Sector.Sector0
-        self.ssector = Sector.Sector0
+        self.curr_sector = self.game.sector.Sector0
+        self.curr_ssector = self.curr_sector
         #
         self.frame_counter = 0
         self.size = 10  # these vars temp
@@ -207,7 +206,7 @@ class Monster(AnimSprite):
             self.attack_state = False
 
     def search_switcher(self):
-        waypoints = self.sector.waypoints
+        waypoints = self.curr_sector.waypoints
         curr1 = waypoints[self.loop_i][0]
         curr2 = waypoints[self.loop_i][1]
         cons_dist = 100
@@ -225,16 +224,16 @@ class Monster(AnimSprite):
         self.in_search = False
 
     def route_moving(self):
-        goal_node = self.sector.waypoints[self.loop_i]
+        goal_node = self.curr_sector.waypoints[self.loop_i]
         if self.cons_swap:
-            goal_node = self.sector.waypoints[self.cons_i]
+            goal_node = self.curr_sector.waypoints[self.cons_i]
             self.loop_i = self.cons_i
             print('swapped')
             self.cons_swap = False
         # ------------------------------------
         if goal_node == self.map_pos:
             self.loop_i += 1
-        elif self.loop_i < len(self.sector.waypoints) - 1:
+        elif self.loop_i < len(self.curr_sector.waypoints) - 1:
             self.moving(goal_node)
         else:
             self.loop_i = 0
@@ -294,14 +293,14 @@ class Monster(AnimSprite):
         return (x, y) not in self.game.map.cor_map
 
     def check_sector(self):
-        sec1 = Sector.Sector1
+        sec1 = self.game.sector.Sector1
         if sec1.x1 < self.x < sec1.x2:
             if sec1.y1 < self.y < sec1.y2:
-                self.sector = sec1
-        sec2 = Sector.Sector2
+                self.curr_sector = sec1
+        sec2 = self.game.sector.Sector2
         if sec2.x1 < self.x < sec2.x2:
             if sec2.y1 < self.y < sec2.y2:
-                self.sector = sec2
+                self.curr_sector = sec2
 
     def raycast(self):
         self.see_player = False
