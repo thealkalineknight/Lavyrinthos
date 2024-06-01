@@ -29,7 +29,7 @@ class Game:
 
     def new_game(self):  # if calls property from other class, list after
         self.CRUSADE = 1
-        self.map = Map(self)
+        self.map = Map2(self)
         self.proxes = Proxes
         self.player = Player(self)
         self.obj_rend = ObjRend(self)  # must before raycasting
