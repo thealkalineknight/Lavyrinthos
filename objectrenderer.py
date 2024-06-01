@@ -51,7 +51,7 @@ class ObjRend:
             2: self.convert_tex('assets/walls/WLIMEK1.PNG'),
             3: self.convert_tex('assets/walls/WLIMEK2.PNG'),
             4: self.convert_tex('assets/walls/ENTRY.PNG'),
-            5: self.convert_tex('assets/walls/b.jpg'),  # props
+            5: self.convert_tex('assets/walls/sawnic.jpg'),  # props
             6: self.convert_tex('assets/walls/WLIMELOC.PNG'),  # secret
             7: self.convert_tex('assets/walls/NOTEX.PNG'),  # gates
             # 8: self.convert_tex('assets/walls/NOTEX.PNG'),  # sprite  # dont need these anymore
