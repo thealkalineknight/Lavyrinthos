@@ -22,7 +22,7 @@ class Interface:
         self.AUREOLE = self.convert_tex(self.path + 'TESTORB.png', (100, 100))
         self.INTER_SCR = self.convert_tex(self.path + 'UIFINLV1.png', (WIDTH, HEIGHT))
         self.FIN_BTN = self.convert_tex(self.path + 'FINBTN.png', (self.btn_w, self.btn_h))
-        self.FIN_CRUSD = self.convert_tex(self.path + 'FINCRUSD.png', (750, 150))
+        self.FIN_CRUSD = self.convert_tex(self.path + 'FINCRUSD.png', (650, 150))
         self.FIN_SCRT = self.convert_tex(self.path + 'FINSECRT.png', (self.btn_hw, self.btn_hh))
         self.PRE_MODE = True
         self.SETT_MODE = False
