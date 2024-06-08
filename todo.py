@@ -1,7 +1,15 @@
 # TODO:
 # nu:
-# level 2
+# map design just nums
+# map design 3
+# sectors both
+# boss health win mech
 # saving
+# new ui screens
+# concept:
+# walls
+# props
+# dummies
 
 # draw:
 # aureole

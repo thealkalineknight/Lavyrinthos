@@ -17,7 +17,7 @@ class System:
             self.game.running = False
             self.aur_trigger = False
             self.aur_trigger2 = False
-            self.game.player.x, self.game.player.y = 1.5, 3.5
+            self.game.player.x, self.game.player.y = 1.5, 13.5
 
     def check_secrets(self):
         count = 0

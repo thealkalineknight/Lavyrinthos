@@ -52,7 +52,7 @@ class ObjConfig:
                                inter_type='aureole', iden=1))
 
         add_sprite(AnimSprite(game, path=self.anim_sprite_path + '/fences/FEN1/FEN1_0.PNG', pos=(28, 4.5),
-                              wscale=1.2, hscale=1.2, shift=0.1, angle=3, anim_type='stat'))  # adjust later
+                              wscale=1.2, hscale=1.2, shift=0.1, angle=3, anim_type='stat'))
 
     def update(self):
         self.positions = {monster.map_pos for monster in self.monster_list if monster.alive_state
