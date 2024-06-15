@@ -29,7 +29,7 @@ class ObjConfig2:
                               wscale=2.5, hscale=1.5, shift=0.08, angle=4, anim_type='stat'))
         add_sprite(AnimSprite(game, path=self.anim_sprite_path + '/fences/FEN1/FEN1_0.PNG', pos=(18, 14),
                               wscale=2.5, hscale=1.5, shift=0.08, angle=4, anim_type='stat'))
-        add_sprite(AnimSprite(game, path=self.anim_sprite_path + '/fences/FEN1/FEN1_0.PNG', pos=(15, 16),
+        add_sprite(AnimSprite(game, path=self.anim_sprite_path + '/fences/FEN2/FEN2_0.PNG', pos=(15, 16),
                               wscale=2.5, hscale=1.5, shift=0.08, angle=3, anim_type='stat'))
 
     def update(self):

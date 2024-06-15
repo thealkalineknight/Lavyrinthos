@@ -97,7 +97,6 @@ class Player:
 
         if self.get_gate_cors(int(self.x + dx * scale), int(self.y)) and self.gate_fullopen:
             self.x += dx
-
         if self.get_gate_cors(int(self.x), int(self.y + dy * scale)) and self.gate_fullopen:
             self.y += dy
 

@@ -27,7 +27,7 @@ class Game:
         self.new_game()
         self.running = True
 
-    def new_game(self):  # if calls property from other class, list after
+    def new_game(self):
         self.CRUSADE = 1
         self.map = Map(self)
         self.proxes = Proxes
