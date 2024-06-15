@@ -91,6 +91,7 @@ class Game:
         self.sector = self.prep_class('sec')
         self.obj_config = self.prep_class('obj')
         self.pathfinding = Pathfinding(self)
+        self.system.adv_level(self.CRUSADE)
 
     def prep_class(self, mode):  # obj rend sky ground ; interface ; sys ; main
         book = {}

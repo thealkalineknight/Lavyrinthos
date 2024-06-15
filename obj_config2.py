@@ -32,6 +32,10 @@ class ObjConfig2:
         add_sprite(AnimSprite(game, path=self.anim_sprite_path + '/fences/FEN2/FEN2_0.PNG', pos=(15, 16),
                               wscale=2.5, hscale=1.5, shift=0.08, angle=3, anim_type='stat'))
 
+        add_monster(Monster(game, path=self.monster_path + '/dummy/dum init.png', pos=(20, 16.5),
+                            wscale=1, hscale=1, shift=0.1, angle=0, mon_type='boss',
+                            health=300 - self.game.system.SAVE_DMG))
+
     def update(self):
         self.positions = {monster.map_pos for monster in self.monster_list if monster.alive_state
                           and not monster.snooze_state}

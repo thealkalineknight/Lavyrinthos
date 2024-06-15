@@ -33,7 +33,7 @@ class ObjConfig:
                                wscale=0.7, hscale=0.7, shift=0.27, inter_type='stand', iden=2))
 
         add_monster(Monster(game, path=self.monster_path + '/dummy/dum init.png', pos=(14, 16.5),
-                            wscale=1, hscale=1, shift=0.1, angle=0, mon_type='boss', health=100))
+                            wscale=1, hscale=1, shift=0.1, angle=0, mon_type='boss', health=300))
         # should be for determining wake up trigger on start, maybe don't need to program anything (play test)
 
         # pos=(29.5, 3.5)

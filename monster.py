@@ -61,7 +61,8 @@ class Monster(AnimSprite):
         self.cons_swap = False
         self.cons_i = 0
         self.snooze_state = False
-        self.health_lock = False
+        self.health_lock = True
+        print(self.health, self.mon_type)
 
     def update(self):
         self.check_sector()
@@ -154,13 +155,13 @@ class Monster(AnimSprite):
             self.out_search = True
             self.route_moving()
 
-    def vulnerable(self):  # rig improved system
-        if self.health > 300:
-            self.health -= 10000  # no anim pain
-            print('anim aureole affected')
-        if self.health < self.game.system.THRESHOLD:
-            # if self.health > 0:
-            #    self.health_lock = True
+    def vulnerable(self):
+        if self.health > self.game.system.THRESHOLD:
+            self.health_lock = False
+            # print('anim aureole affected')
+        if self.health <= self.game.system.THRESHOLD:
+            if self.health > 0:
+                self.health_lock = True
             # print('retreat while disappear anim')  # retreat state
             self.game.system.retreat_state = True
             # temp: grayed this func, and vulnerable turn on. obj config health
@@ -185,6 +186,8 @@ class Monster(AnimSprite):
                 if 500 > self.screen_pos[0] > 100:
                     self.health -= dmg
                     print('hit')
+                    if self.mon_type == 'boss':
+                        self.game.system.SAVE_DMG += self.game.weapon.deliver_dmg
         # no hurt anim lol
 
     def attacker(self, ray_value):

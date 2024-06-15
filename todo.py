@@ -1,9 +1,7 @@
 # TODO:
 # nu:
-# map design just nums
-# map design 3
-# sectors both
-# boss health win mech
+# MAP # PLACEHOLDER,
+# LVL2 INPUT
 # saving
 # new ui screens
 # concept:

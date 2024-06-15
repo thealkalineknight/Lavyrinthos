@@ -124,9 +124,9 @@ class Weapon(AnimSprite):
     def type_checker(self):
         if self.type == 'katana':
             self.images = self.STICK_IMAGES
-            self.DMG = 20
+            self.DMG = 10
             self.num_images = len(self.images)
         if self.type == 'shotgun':
             self.images = self.SHOT_IMAGES
-            self.DMG = 50
+            self.DMG = 20
             self.num_images = len(self.images)
