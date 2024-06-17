@@ -74,6 +74,9 @@ class Player:
         if key[pg.K_p]:  # for alpha testing cheat
             self.x, self.y = 33, 23
 
+        if key[pg.K_m]:  # for alpha testing cheat
+            print(self.x, self.y)
+
         if key[pg.K_LEFT]:
             self.angle -= PLYR_RSPD * self.game.dtime
         if key[pg.K_RIGHT]:

@@ -1,13 +1,15 @@
 # TODO:
 # nu:
-# MAP # PLACEHOLDER,
-# LVL2 INPUT
+# LVL2-3 INPUT
 # saving
 # new ui screens
 # concept:
 # walls
 # props
 # dummies
+# REM:
+# inter mode for lvl
+# sys lvls
 
 # draw:
 # aureole

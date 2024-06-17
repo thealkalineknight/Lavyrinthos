@@ -8,7 +8,8 @@ class Sound:
         self.ost_path = 'assets/sound/levelost'
         self.levelost_1 = pg.mixer.Sound(self.ost_path + '/ENTER_DUNGEON.mp3')
         self.levelost_2 = pg.mixer.Sound(self.ost_path + '/THE_HALLS_DARKEN.mp3')
-        self.SOUND_BANK = {1: self.levelost_1, 2: self.levelost_2}
+        self.levelost_3 = pg.mixer.Sound(self.ost_path + '/KILL_O_TAUR.mp3')
+        self.SOUND_BANK = {1: self.levelost_1, 2: self.levelost_2, 3: self.levelost_3}
 
     def theme_song(self):
         curr_theme = self.SOUND_BANK[self.game.CRUSADE]

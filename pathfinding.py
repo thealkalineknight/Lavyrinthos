@@ -35,10 +35,6 @@ class Pathfinding:
         while step and step != start:
             path.append(step)
             step = self.visited[step]
-        key = pg.key.get_pressed()
-        if key[pg.K_m]:
-            print(path[::-1])
-            print('-------------------------------')
         return path[-1]
 
     def astar(self, start, goal, graph):
