@@ -20,12 +20,17 @@ class System:
             self.aureole_state = False
             self.retreat_state = False
             self.crusade_state = False
+            self.game.player.gate_fullopen = False
 
     def adv_level(self, crusade):
         if crusade == 2:
             self.game.player.x, self.game.player.y = 1.5, 13.5
             self.THRESHOLD = 100
-            self.END_POS = (37, 23)  # fill in later
+            self.END_POS = (35, 1)
+        if crusade == 3:
+            self.game.player.x, self.game.player.y = 5, 6
+            self.THRESHOLD = 0
+            self.END_POS = (35, 1)
 
     def check_secrets(self):
         count = 0

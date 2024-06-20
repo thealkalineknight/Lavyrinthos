@@ -15,6 +15,10 @@ from map2 import *
 from proxes2 import *
 from sectors2 import *
 from obj_config2 import *
+from map3 import *
+from proxes3 import *
+from sectors3 import *
+from obj_config3 import *
 
 
 class Game:
@@ -97,14 +101,13 @@ class Game:
     def prep_class(self, mode):  # obj rend sky ground ; interface ; sys ; main
         book = {}
         if mode == 'map':
-            book = {1: Map(self), 2: Map2(self)}
+            book = {1: Map(self), 2: Map2(self), 3: Map3(self)}
         if mode == 'prox':
-            book = {1: Proxes, 2: Proxes2}
+            book = {1: Proxes, 2: Proxes2, 3: Proxes3}
         if mode == 'sec':
-            book = {1: Sector, 2: Sector2}
+            book = {1: Sector, 2: Sector2, 3: Sector3}
         if mode == 'obj':
-            book = {1: ObjConfig(self), 2: ObjConfig2(self)}
-        # print(self.CRUSADE)
+            book = {1: ObjConfig(self), 2: ObjConfig2(self), 3: ObjConfig3(self)}
         return book[self.CRUSADE]
 
     def pre_mode(self):

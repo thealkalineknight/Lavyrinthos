@@ -36,6 +36,12 @@ class ObjConfig2:
                             wscale=1, hscale=1, shift=0.1, angle=0, mon_type='boss',
                             health=300 - self.game.system.SAVE_DMG))
 
+        add_interact(Interacts(game, path=self.anim_sprite_path + '/gates/LVL1EX1.PNG', pos=(35.5, 3),
+                               wscale=1.4, hscale=1.4, shift=-0.1, anim_time=200, inter_type='gate'))
+
+        add_interact(Interacts(game, path=self.anim_sprite_path + 'stands/LKEYEMPT.PNG', pos=(3.5, 24.5),
+                               wscale=0.7, hscale=0.7, shift=0.27, inter_type='stand', iden=1))
+
     def update(self):
         self.positions = {monster.map_pos for monster in self.monster_list if monster.alive_state
                           and not monster.snooze_state}

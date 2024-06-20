@@ -240,7 +240,7 @@ class Monster(AnimSprite):
             self.moving(goal_node)
         else:
             self.loop_i = 0
-            print('loop again')
+            # print('loop again')
 
     def moving(self, goal):
         if self.move_state:
