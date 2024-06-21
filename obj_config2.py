@@ -24,13 +24,13 @@ class ObjConfig2:
                                inter_type='aureole', iden=1))
 
         add_sprite(AnimSprite(game, path=self.anim_sprite_path + '/fences/FEN1/FEN1_0.PNG', pos=(15, 10),
-                              wscale=2.5, hscale=1.5, shift=0.08, angle=5, anim_type='stat'))
+                              wscale=2, hscale=1, shift=0.08, angle=5, anim_type='stat'))
         add_sprite(AnimSprite(game, path=self.anim_sprite_path + '/fences/FEN1/FEN1_0.PNG', pos=(18, 12),
-                              wscale=2.5, hscale=1.5, shift=0.08, angle=4, anim_type='stat'))
+                              wscale=2, hscale=1, shift=0.08, angle=4, anim_type='stat'))
         add_sprite(AnimSprite(game, path=self.anim_sprite_path + '/fences/FEN1/FEN1_0.PNG', pos=(18, 14),
-                              wscale=2.5, hscale=1.5, shift=0.08, angle=4, anim_type='stat'))
+                              wscale=2, hscale=1, shift=0.08, angle=4, anim_type='stat'))
         add_sprite(AnimSprite(game, path=self.anim_sprite_path + '/fences/FEN2/FEN2_0.PNG', pos=(15, 16),
-                              wscale=2.5, hscale=1.5, shift=0.08, angle=3, anim_type='stat'))
+                              wscale=2, hscale=1, shift=0.08, angle=3, anim_type='stat'))
 
         add_monster(Monster(game, path=self.monster_path + '/dummy/dum init.png', pos=(20, 16.5),
                             wscale=1, hscale=1, shift=0.1, angle=0, mon_type='boss',
