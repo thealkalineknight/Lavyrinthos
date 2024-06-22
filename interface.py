@@ -142,19 +142,13 @@ class Interface:
         self.limit_key_time()
         if self.key_trigger:
 
-            if key[pg.K_DOWN] or key[pg.K_UP]:
-                self.mask = True
-
-            if key[pg.K_DOWN]:
-                self.key_count += 1
-            if key[pg.K_UP]:
-                self.key_count -= 1
-
             if key[pg.K_RETURN]:
                 if self.key_count == 0:
                     if not self.first_boot:
                         self.INTER_MODE = False
                         self.MAIN_MODE = True
+                        self.mask = False
+                        self.first_boot = True
                     else:
                         self.mask = True
 

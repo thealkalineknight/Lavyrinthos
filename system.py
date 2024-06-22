@@ -28,7 +28,7 @@ class System:
             self.THRESHOLD = 100
             self.END_POS = (35, 1)
         if crusade == 3:
-            self.game.player.x, self.game.player.y = 5, 6
+            self.game.player.x, self.game.player.y = 1.5, 6
             self.THRESHOLD = 0
             self.END_POS = (-10, -10)  # aka youre not finishing this game >:(
 

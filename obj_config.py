@@ -45,7 +45,8 @@ class ObjConfig:
                                wscale=0.05, hscale=0.05, shift=5, inter_type='weapon', iden=2))
 
         add_monster(Monster(game, path=self.monster_path + '/hamster/ham init.png', pos=(1.5, 15),
-                            wscale=0.7, hscale=0.7, shift=0.5, angle=4, mon_type='common', dir_range=10))
+                            wscale=0.7, hscale=0.7, shift=0.5, angle=4, mon_type='common', dir_range=10,
+                            health=60))
         #
         add_interact(Interacts(game, path=self.anim_sprite_path + 'pickups/AUREOLE/TESTORB.png',
                                pos=(-10, -10), wscale=0.2, hscale=0.2, shift=0.27, anim_time=70,

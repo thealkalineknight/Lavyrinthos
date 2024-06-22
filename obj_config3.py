@@ -16,27 +16,15 @@ class ObjConfig3:
         add_interact = self.add_interact
         add_monster = self.add_monster
 
-        add_monster(Monster(game, path=self.monster_path + '/hamster/ham init.png', pos=(1.5, 5),
-                            wscale=0.7, hscale=0.7, shift=0.5, angle=4, mon_type='common', dir_range=10))
-        #
         add_interact(Interacts(game, path=self.anim_sprite_path + 'pickups/AUREOLE/TESTORB.png',
                                pos=(-10, -10), wscale=0.2, hscale=0.2, shift=0.27, anim_time=70,
                                inter_type='aureole', iden=1))
 
-        add_sprite(AnimSprite(game, path=self.anim_sprite_path + '/fences/FEN1/FEN1_0.PNG', pos=(15, 10),
-                              wscale=2.5, hscale=1.5, shift=0.08, angle=5, anim_type='stat'))
-        add_sprite(AnimSprite(game, path=self.anim_sprite_path + '/fences/FEN1/FEN1_0.PNG', pos=(18, 12),
-                              wscale=2.5, hscale=1.5, shift=0.08, angle=4, anim_type='stat'))
-        add_sprite(AnimSprite(game, path=self.anim_sprite_path + '/fences/FEN1/FEN1_0.PNG', pos=(18, 14),
-                              wscale=2.5, hscale=1.5, shift=0.08, angle=4, anim_type='stat'))
-        add_sprite(AnimSprite(game, path=self.anim_sprite_path + '/fences/FEN2/FEN2_0.PNG', pos=(15, 16),
-                              wscale=2.5, hscale=1.5, shift=0.08, angle=3, anim_type='stat'))
-
-        add_monster(Monster(game, path=self.monster_path + '/dummy/dum init.png', pos=(20, 16.5),
+        add_monster(Monster(game, path=self.monster_path + '/dummy/dum init.png', pos=(6, 9.5),
                             wscale=1, hscale=1, shift=0.1, angle=0, mon_type='boss',
                             health=300 - self.game.system.SAVE_DMG))
 
-        add_interact(Interacts(game, path=self.anim_sprite_path + 'stands/LKEYEMPT.PNG', pos=(3.5, 24.5),
+        add_interact(Interacts(game, path=self.anim_sprite_path + 'stands/LKEYEMPT.PNG', pos=(3.5, 6.5),
                                wscale=0.7, hscale=0.7, shift=0.27, inter_type='stand', iden=1))
 
     def update(self):
