@@ -8,7 +8,7 @@ It was based on a heavily modified version of this raycaster: https://github.com
 Plus music by https://soundcloud.com/spiderguaves .
 Chicken from Heretic, big cow from DOOM 64, shotgun from DOOM '93, some stock images I heavily editied or drew all over, plus some of my (cough, old) original art.
 
-Changes Included:
+--------------------Changes Included:
 
 -Far clipping plane based on maximum visible distance (furthest rendered wall)
 
@@ -22,7 +22,7 @@ Changes Included:
 
 -Different patrol routes based on map sector for boss types, switching routes if entering a new sector and if the player ran away.
 
--Different levels of boss awareness of player;
+------Different levels of boss awareness of player;
 
 .If player not in any range, continue on route.
 
@@ -33,14 +33,13 @@ Changes Included:
 .If player no longer within FOV, timer will allow monster to follow player, even if behind a wall, for a short time limit, then return to patrol.
 
 
-How to Play:
+--------------------How to Play:
 
 Controls: WASD move, mouse or left/right arrows to look, E to pick up, click to use; 
 
 Cheat/Test Keys; L to drop power up, P to teleport near end in levels 1-2 ONLY.
 
-
-There are currently 3 levels (crusades). Originally, there were going to be 2-4 levels per world, but the art took much longer than the actual programming. 
+-----There are currently 3 levels (crusades). Originally, there were going to be 2-4 levels per world, but the art took much longer than the actual programming. 
 
 -Find the keys on the walls and hang them on the keystands.
 
