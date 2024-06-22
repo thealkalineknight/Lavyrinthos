@@ -30,5 +30,4 @@ There are currently 3 levels (crusades). Originally, there were going to be 2-4 
 -The boss (not programmed) would retreat and meet the player next level with reduced health and die in the final level of that world. Next world would have a new boss.
 -This was designed to be an evasion/shooter game with labrynith puzzles. There was a lore reason for the power up system.
 
-There is an image of a blender model in Assets that was going to be converted into sprite sheets to replace the Chicken from Heretic as a common mob, but at that point,
-it did not seem like a smart idea to invest so much in this particular project.
+There is an image of a blender model in assets/conceptArt that was going to be converted into sprite sheets to replace the Chicken from Heretic as a common mob, but at that point, it did not seem like a smart idea to invest so much in this particular project. 
