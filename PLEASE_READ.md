@@ -10,6 +10,7 @@ Chicken from Heretic, big cow from DOOM 64, shotgun from DOOM '93, some stock im
 
 Changes Included:
 -Far clipping plane based on maximum visible distance (furthest rendered wall)
+
 -Locks and keys, secrets, and gates.
 -Two different weapons.
 -Sprites with 8 different perspectives, 
